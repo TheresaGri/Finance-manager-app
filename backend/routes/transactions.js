@@ -54,7 +54,7 @@ transactionsRouter.post("/", (req, res) => {
 transactionsRouter.put("/:id", (req, res) => {
   let id = Number(req.params.id);
   const newTransaction = req.body;
-  const transactions = JSON.parse(fs.readFileSync("./data/events.json"));
+  const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
   const newTransactionIndex = transactions.findIndex(
     (transaction) => transaction.id === id
   );
