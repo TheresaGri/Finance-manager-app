@@ -31,6 +31,12 @@ transactionsRouter.get("/", (req, res) => {
   res.json(data);
 });
 
+transactionsRouter.get("/:id", (req, res) => {
+  const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
+  const transactionId = transactions.find((transaction) => transaction.id.toString() === req.params.id);
+  res.json(transactionId);
+});
+
 transactionsRouter.post("/", (req, res) => {
   const newTransaction = req.body;
   let transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
