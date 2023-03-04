@@ -6,15 +6,10 @@ const transactionsRouter = express.Router();
 transactionsRouter.get("/", (req, res) => {
   let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
 
-  if (req.query["sortAscending"] !== undefined) {
-    if (req.query["sortAscending"] === "date") {
-      data.sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
-    if (req.query["sortAscending"] === "price") {
-      data = data.sort((a, b) => {
-        return a.amount - b.amount;
-      });
-    }
+  if (req.query.sortAscending === "date") {
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else if (req.query.sortAscending === "amount") {
+    data.sort((a, b) => a.amount - b.amount);
   }
 
   if (req.query.type === "expense") {
