@@ -1,4 +1,5 @@
 import { useState } from "react";
+import postTransaction from "../../api/postTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
@@ -23,7 +24,7 @@ function CreateNewTransaction(props: {
   labelCategory: string;
   labelType: string;
   transactions: Array<Transaction>;
-  categories: Array<string>;
+  categories: Array<Category>;
 }) {
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
@@ -31,23 +32,20 @@ function CreateNewTransaction(props: {
   const [type, setType] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
-  function createTransaction(name: string, date: {}, category: string) {
-    if (date === "") {
-      date = {
-        year: 0,
-        month: 0,
-        day: 0,
-        hour: 0,
-        minute: 0,
-      };
+  function createTransaction():void {
+    
+    let foundCategory:Category | undefined = props.categories.find(cat => cat.name === category)
+
+    console.log(foundCategory)
+    let newTransaction = {
+      description: description,
+      amount:parseInt(amount),
+      date:date,
+      categoryId:foundCategory?.id,
+      type:type
     }
-    const transaction = {
-      id: Math.floor(Math.random() * 10000),
-      name: name,
-      date: date,
-      category: category,
-    };
-    props.onSetTransactions([...props.transactions, event]);
+
+    postTransaction(newTransaction);
 
     props.onCloseWindow(false);
   }
@@ -81,7 +79,7 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelCategory} />
           <Select
-            values={props.categories}
+            values={props.categories.map(category => category.name)}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
@@ -96,7 +94,7 @@ function CreateNewTransaction(props: {
           <Button
             name={"Save"}
             className={"save"}
-            onClick={() => createTransaction(description, date, amount)}
+            onClick={() => createTransaction()}
           />
           <Button
             name={"Cancel"}

@@ -25,6 +25,13 @@ function TransactionList() {
   }, []);
 
   useEffect(() => {
+    async function loadTransactionsData() {
+      setTransactions(await fetchTransactions());
+    }
+    loadTransactionsData();
+  }, [transactions]);
+
+  useEffect(() => {
     async function loadCategoryData() {
       setCategories(await fetchCategories());
     }
@@ -72,7 +79,7 @@ function TransactionList() {
           labelCategory={"Category"}
           labelType={"Type"}
           transactions={transactions}
-          categories={categories.map(category => category.name)}
+          categories={categories}
           />
         )}
       </div>
