@@ -46,6 +46,7 @@ function CreateNewTransaction(props: {
   }
 
   return (
+    <div className="modalOverlay">
     <div className="modalContainer">
       <div className="title">
         <Header heading={props.headerText} />
@@ -84,6 +85,7 @@ function CreateNewTransaction(props: {
           onClick={() => props.onCloseWindow(false)}
         />
       </div>
+    </div>
     </div>
   );
 }
