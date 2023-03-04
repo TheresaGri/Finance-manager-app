@@ -7,4 +7,14 @@ categoriesRouter.get("/", (req,res) => {
   res.json(categoriesData);
 });
 
+categoriesRouter.get("/:categoryId", (req, res) => {
+  const categoriesData = JSON.parse(fs.readFileSync("./data/categories.json"));
+  const category = categoriesData.find((category) => category.id === parseInt(req.params.categoryId));
+  if (!category) {
+    res.status(404).send("Catogory not found");
+  } else {
+    res.json(category);
+  }
+});
+
 export {categoriesRouter};
