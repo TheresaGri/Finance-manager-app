@@ -2,56 +2,28 @@
   {
     "id": 1,
     "amount": -12,
-    "data": {
-      "dayOfWeek": "Sat",
-      "day": 4,
-      "month": 3,
-      "year": 2023,
-      "hour": 12,
-      "minute": 0
-    },
+    "date": "2023-01-01T14:30",
     "description": "MCDONALDS",
     "categoryId": 4
   },
   {
     "id": 2,
     "amount": -60,
-    "data": {
-      "dayOfWeek": "Fri",
-      "day": 31,
-      "month": 3,
-      "year": 2023,
-      "hour": 17,
-      "minute": 15
-    },
+    "date": "2023-02-05T18:30",
     "description": "SPAR",
     "categoryId": 3
   },
   {
     "id": 3,
     "amount": 1000,
-    "data": {
-      "dayOfWeek": "Thu",
-      "day": 1,
-      "month": 6,
-      "year": 2023,
-      "hour": 9,
-      "minute": 0
-    },
+    "date": "2023-03-020T12:30",
     "description": "Company",
     "categoryId": 2
   },
   {
     "id": 4,
     "amount": -100,
-    "data": {
-      "dayOfWeek": "Wed",
-      "day": 10,
-      "month": 5,
-      "year": 2023,
-      "hour": 13,
-      "minute": 0
-    },
+    "date": "2023-04-100T20:30",
     "description": "Hervis",
     "categoryId": 5
   }
