@@ -1,24 +1,24 @@
 [
   {
-    "id": 1,
-    "amount": -12,
-    "date": "2023-01-01T14:30",
-    "description": "MCDONALDS",
-    "type": "Expense",
-    "categoryId": 4
-  },
-  {
     "id": 2,
     "amount": -60,
-    "date": "2023-02-05T18:30",
+    "date": "2023-02-05T18:30:00Z",
     "description": "SPAR",
     "type": "Expense",
     "categoryId": 3
   },
   {
+    "id": 1,
+    "amount": -12,
+    "date": "2023-01-01T14:30:00Z",
+    "description": "MCDONALDS",
+    "type": "Expense",
+    "categoryId": 4
+  },
+  {
     "id": 3,
     "amount": 1000,
-    "date": "2023-03-020T12:30",
+    "date": "2023-03-02T12:30:00Z",
     "description": "Company",
     "type": "Income",
     "categoryId": 2
@@ -26,10 +26,9 @@
   {
     "id": 4,
     "amount": -100,
-    "date": "2023-04-100T20:30",
+    "date": "2023-04-10T20:30:00Z",
     "description": "Hervis",
     "type": "Expense",
     "categoryId": 5
   }
-
 ]
