@@ -4,6 +4,7 @@
     "amount": -12,
     "date": "2023-01-01T14:30",
     "description": "MCDONALDS",
+    "type": "Expense",
     "categoryId": 4
   },
   {
@@ -11,6 +12,7 @@
     "amount": -60,
     "date": "2023-02-05T18:30",
     "description": "SPAR",
+    "type": "Expense",
     "categoryId": 3
   },
   {
@@ -18,6 +20,7 @@
     "amount": 1000,
     "date": "2023-03-020T12:30",
     "description": "Company",
+    "type": "Income",
     "categoryId": 2
   },
   {
@@ -25,6 +28,7 @@
     "amount": -100,
     "date": "2023-04-100T20:30",
     "description": "Hervis",
+    "type": "Expense",
     "categoryId": 5
   }
 
