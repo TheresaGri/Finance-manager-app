@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { deleteTransactionRequest } from "../../api/deleteTransaction";
 import fetchTransactions from "../../api/fetchTransactions";
 import Transaction from "../../types/Transaction";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
@@ -19,7 +20,12 @@ function TransactionList() {
 
   function handleClick(id: number) {}
 
-  function deleteTransaction(id: number) {}
+  function deleteTransaction(id: number) {
+    setTransactions(
+      transactions.filter((transaction) => transaction.id !== id)
+    );
+    deleteTransactionRequest(id);
+  }
 
   function createTransaction(id: number) {}
 
