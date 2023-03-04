@@ -63,7 +63,7 @@ transactionsRouter.put("/:id", (req, res) => {
   fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
 });
 
-transactions.delete("/:id", (req, res) => {
+transactionsRouter.delete("/:id", (req, res) => {
   const id = Number(req.params.id);
   const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
   const filteredTransactions = transactions.filter(
