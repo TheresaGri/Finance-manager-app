@@ -8,12 +8,12 @@ function TransactionComponent(props: {
   date: string;
   description: string;
   type: string;
-  editTransaction: MouseEventHandler<HTMLButtonElement>;
-  deleteTransaction: MouseEventHandler<HTMLButtonElement>;
+  onEditTransaction: MouseEventHandler<HTMLButtonElement>;
+  onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
     <div className="transaction">
-      <div className={"editTransaction"} onClick={() => props.editTransaction}>
+      <div className={"editTransaction"} onClick={() => props.onEditTransaction}>
         <Text text={`${props.description}`} className={"description"} />
         <Text
           text={`${props.amount.toString()} €`}
@@ -28,12 +28,12 @@ function TransactionComponent(props: {
         <Button
           name={"EDIT"}
           className={"editButton"}
-          onClick={props.editTransaction}
+          onClick={props.onEditTransaction}
         />
         <Button
           name={"DELETE"}
           className={"deleteButton"}
-          onClick={props.deleteTransaction}
+          onClick={props.onDeleteTransaction}
         />
       </div>
     </div>
