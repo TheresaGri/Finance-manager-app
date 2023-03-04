@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import fetchTransactions from "../../api/fetchTransactions";
 import Transaction from "../../types/Transaction";
 import TransactionComponent from "../transaction/TransactionComponent";
-import './TransactionList.css'
+import "./TransactionList.css";
 
 function TransactionList() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
@@ -27,7 +27,7 @@ function TransactionList() {
             key={transaction.id}
             amount={transaction.amount}
             date={transaction.date}
-            category={transaction.category}
+            description={transaction.description}
             type={transaction.type}
             editTransaction={() => handleClick(transaction.id)}
             deleteTransaction={() => deleteTransaction(transaction.id)}
