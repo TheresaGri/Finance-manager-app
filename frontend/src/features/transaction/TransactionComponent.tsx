@@ -1,40 +1,39 @@
 import { MouseEventHandler } from "react";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
+import "./TransactionComponent.css";
 
 function TransactionComponent(props: {
   amount: number;
-  hour: number;
-  minute: number;
-  category: number;
-  editTransaction: MouseEventHandler<HTMLButtonElement>;
-  deleteTransaction: MouseEventHandler<HTMLButtonElement>;
+  date: string;
+  description: string;
+  type: string;
+  onEditTransaction: MouseEventHandler<HTMLButtonElement>;
+  onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
-    <div className="event">
-      <div
-        className={props.category === 2 ? "work" : "personal"}
-        onClick={() => props.editTransaction}
-      >
-        <div className="buttonContainer">
-          <Button
-            name={"EDIT"}
-            className={"editButton"}
-            onClick={props.editTransaction}
-          />
-          <Button
-            name={"DELETE"}
-            className={"deleteButton"}
-            onClick={props.deleteTransaction}
-          />
-        </div>
-
-        <Text text={props.amount.toString()} className={"name"}/>
+    <div className="transaction">
+      <div className={"editTransaction"} onClick={() => props.onEditTransaction}>
+        <Text text={`${props.description}`} className={"description"} />
         <Text
-          className="time"
-          text={`${props.hour.toString().padStart(2, "0")}h${props.minute
-            .toString()
-            .padStart(2, "0")}`}
+          text={`${props.amount.toString()} €`}
+          className={props.type === "Expense" ? "expense" : "deposit"}
+        />
+        <Text
+          className={"date"}
+          text={`${props.date.substring(0, 10)} ${props.date.split("T")[1]}`}
+        />
+      </div>
+      <div className="buttonContainer">
+        <Button
+          name={"EDIT"}
+          className={"editButton"}
+          onClick={props.onEditTransaction}
+        />
+        <Button
+          name={"DELETE"}
+          className={"deleteButton"}
+          onClick={props.onDeleteTransaction}
         />
       </div>
     </div>

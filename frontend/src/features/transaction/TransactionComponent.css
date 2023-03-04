@@ -1,0 +1,21 @@
+.expense {
+    color:red
+}
+
+.deposit {
+    color:green
+}
+
+.transaction {
+    border: 1px solid;
+    margin: 5px;
+    width: 500px;
+}
+
+.deleteButton {
+    margin: 30px;
+}
+
+.editButton {
+    margin: 30px;
+}

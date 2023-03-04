@@ -1,8 +1,9 @@
 type Transaction = {
   id: number;
   amount: number;
-  date: Date;
+  date: string;
   description: string;
+  type: string;
   category: number;
 };
 
