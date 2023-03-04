@@ -75,4 +75,20 @@ transactionsRouter.delete("/:id", (req, res) => {
   );
 });
 
+transactionsRouter.patch("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const updatedTransaction = req.body;
+  let transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
+
+  const transactionIndex = transactions.findIndex(
+    (transaction) => transaction.id === id
+  );
+  if (transactionIndex !== -1) {
+    transactions[transactionIndex] = { ...updatedTransaction, id };
+    fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
+    res.json({ status: "success" });
+  } else {
+    res.status(404).json({ message: "Transaction not found" });
+  }
+});
 export { transactionsRouter };
