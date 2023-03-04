@@ -1,9 +1,9 @@
 import { MouseEventHandler } from "react";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
-import "./EventComponent.css";
+
 function TransactionComponent(props: {
-  name: string;
+  amount: number;
   hour: number;
   minute: number;
   category: number;
@@ -29,7 +29,7 @@ function TransactionComponent(props: {
           />
         </div>
 
-        <Text text={props.name} className={"name"}/>
+        <Text text={props.amount.toString()} className={"name"}/>
         <Text
           className="time"
           text={`${props.hour.toString().padStart(2, "0")}h${props.minute
