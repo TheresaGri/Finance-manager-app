@@ -7,7 +7,7 @@ transactionsRouter.get("/", (req, res) => {
   let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
 
   if (req.query.sortAscending === "date") {
-    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+    data.sort((a, b) => a.date - b.date);
   } else if (req.query.sortAscending === "amount") {
     data.sort((a, b) => a.amount - b.amount);
   }
@@ -24,7 +24,7 @@ transactionsRouter.get("/", (req, res) => {
   }
 
   if (req.query.sortDescending === "date") {
-    data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    data.sort((a, b) => b.date - a.date);
   } else if (req.query.sortDescending === "amount") {
     data.sort((a, b) => b.amount - a.amount);
   }
