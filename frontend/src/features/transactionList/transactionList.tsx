@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { deleteTransactionRequest } from "../../api/deleteTransaction";
+import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import Button from "../../components/Button";
+import Category from "../../types/Category";
 import Transaction from "../../types/Transaction";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
 import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
@@ -10,16 +12,23 @@ import "./TransactionList.css";
 
 function TransactionList() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
-  const [categories, setCategories] = useState<Array<Transaction>>([]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
 
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
 
   useEffect(() => {
-    async function loadEventsData() {
+    async function loadTransactionsData() {
       setTransactions(await fetchTransactions());
     }
-    loadEventsData();
+    loadTransactionsData();
+  }, []);
+
+  useEffect(() => {
+    async function loadCategoryData() {
+      setCategories(await fetchCategories());
+    }
+    loadCategoryData();
   }, []);
 
   function handleClick(id: number) {}
@@ -60,7 +69,10 @@ function TransactionList() {
           labelDescription={"Name of Event"}
           labelDate={"When"}
           labelAmount={"Amount"}
+          labelCategory={"Category"}
+          labelType={"Type"}
           transactions={transactions}
+          categories={categories.map(category => category.name)}
           />
         )}
       </div>
