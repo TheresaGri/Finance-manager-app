@@ -6,15 +6,10 @@ const transactionsRouter = express.Router();
 transactionsRouter.get("/", (req, res) => {
   let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
 
-  if (req.query["sortAscending"] !== undefined) {
-    if (req.query["sortAscending"] === "date") {
-      data.sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
-    if (req.query["sortAscending"] === "price") {
-      data = data.sort((a, b) => {
-        return a.amount - b.amount;
-      });
-    }
+  if (req.query.sortAscending === "date") {
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else if (req.query.sortAscending === "amount") {
+    data.sort((a, b) => a.amount - b.amount);
   }
 
   if (req.query.type === "expense") {
@@ -34,6 +29,12 @@ transactionsRouter.get("/", (req, res) => {
     data.sort((a, b) => b.amount - a.amount);
   }
   res.json(data);
+});
+
+transactionsRouter.get("/:id", (req, res) => {
+  const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
+  const transactionId = transactions.find((transaction) => transaction.id.toString() === req.params.id);
+  res.json(transactionId);
 });
 
 transactionsRouter.post("/", (req, res) => {
@@ -75,4 +76,20 @@ transactionsRouter.delete("/:id", (req, res) => {
   );
 });
 
+transactionsRouter.patch("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const updatedTransaction = req.body;
+  let transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
+
+  const transactionIndex = transactions.findIndex(
+    (transaction) => transaction.id === id
+  );
+  if (transactionIndex !== -1) {
+    transactions[transactionIndex] = { ...updatedTransaction, id };
+    fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
+    res.json({ status: "success" });
+  } else {
+    res.status(404).json({ message: "Transaction not found" });
+  }
+});
 export { transactionsRouter };
