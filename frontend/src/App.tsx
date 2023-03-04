@@ -1,5 +1,5 @@
 import './App.css';
-import TransactionList from './features/transactionList/transactionList';
+import TransactionList from '../src/features/transactionList/transactionList'
 
 function App() {
 

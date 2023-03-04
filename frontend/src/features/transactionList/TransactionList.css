@@ -1,0 +1,9 @@
+.transactions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    min-height: 100px;
+}
+
