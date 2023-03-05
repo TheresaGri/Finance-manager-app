@@ -18,16 +18,29 @@ transactionsRouter.get("/", (req, res) => {
   } else if (req.query.type === "income") {
     data = data.filter((transaction) => transaction.type === "Income");
   }
-/* 
-  if (req.query["category"] !== undefined) {
-    const categoryId = req.query.category;
-    console.log(categoryId)
 
-/*     data = data.filter((transaction) => transaction.categoryId === categoryId);
-   } */
+  if (req.query["category"] !== undefined) {
+    const categoryName = req.query["category"];
+    const categoryWithName = categories.find(
+      (category) => category.name === categoryName
+    );
+
+    if (categoryWithName) {
+      const idOfCategory = categoryWithName.id;
+      const transactionsInCategory = data.filter(
+        (transaction) => transaction.categoryId === idOfCategory
+      );
+      data = transactionsInCategory;
+    } else {
+      // handle case where category name is not found
+      // for example, you could return an error response
+      res.status(400).send("Invalid category name");
+      return;
+    }
+  }
 
   if (req.query.sortDescending === "date") {
-    data.sort((a, b) =>new Date(b.date) - new Date(a.date));
+    data.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (req.query.sortDescending === "amount") {
     data.sort((a, b) => b.amount - a.amount);
   }
@@ -36,7 +49,9 @@ transactionsRouter.get("/", (req, res) => {
 
 transactionsRouter.get("/:id", (req, res) => {
   const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
-  const transactionId = transactions.find((transaction) => transaction.id.toString() === req.params.id);
+  const transactionId = transactions.find(
+    (transaction) => transaction.id.toString() === req.params.id
+  );
   res.json(transactionId);
 });
 
