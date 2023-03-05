@@ -64,7 +64,7 @@ function editTransaction(props: {
     });
     console.log(props.transactions)
     props.onSetTransactions(transactionsUpdated);
-    putTransaction(newData, props.id);
+    patchTransaction(newData, props.id);
 
    
     props.onCloseWindow(false);
