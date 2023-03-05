@@ -1,19 +1,19 @@
 [
   {
-    "id": 2,
-    "amount": -60,
-    "date": "2023-02-05T18:30",
-    "description": "SPAR",
-    "type": "Expense",
-    "categoryId": 3
-  },
-  {
     "id": 1,
     "amount": -12,
     "date": "2023-01-01T14:30",
     "description": "MCDONALDS",
     "type": "Expense",
     "categoryId": 4
+  },
+  {
+    "id": 2,
+    "amount": -60,
+    "date": "2023-02-05T18:30",
+    "description": "SPAR",
+    "type": "Expense",
+    "categoryId": 3
   },
   {
     "id": 3,
@@ -30,5 +30,13 @@
     "description": "Hervis",
     "type": "Expense",
     "categoryId": 5
+  },
+  {
+    "id": 5,
+    "amount": -500,
+    "date": "2023-01-10T20:30",
+    "description": "Ebi",
+    "type": "Expense",
+    "categoryId": 4
   }
 ]

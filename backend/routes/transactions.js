@@ -5,9 +5,10 @@ const transactionsRouter = express.Router();
 
 transactionsRouter.get("/", (req, res) => {
   let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
+  let categories = JSON.parse(fs.readFileSync("./data/categories.json"));
 
   if (req.query.sortAscending === "date") {
-    data.sort((a, b) => a.date - b.date);
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
   } else if (req.query.sortAscending === "amount") {
     data.sort((a, b) => a.amount - b.amount);
   }
@@ -17,14 +18,16 @@ transactionsRouter.get("/", (req, res) => {
   } else if (req.query.type === "income") {
     data = data.filter((transaction) => transaction.type === "Income");
   }
+/* 
+  if (req.query["category"] !== undefined) {
+    const categoryId = req.query.category;
+    console.log(categoryId)
 
-  if (req.query.category) {
-    const categoryId = parseInt(req.query.category);
-    data = data.filter((transaction) => transaction.categoryId === categoryId);
-  }
+/*     data = data.filter((transaction) => transaction.categoryId === categoryId);
+   } */
 
   if (req.query.sortDescending === "date") {
-    data.sort((a, b) => b.date - a.date);
+    data.sort((a, b) =>new Date(b.date) - new Date(a.date));
   } else if (req.query.sortDescending === "amount") {
     data.sort((a, b) => b.amount - a.amount);
   }
