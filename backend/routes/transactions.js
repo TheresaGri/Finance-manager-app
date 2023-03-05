@@ -32,10 +32,7 @@ transactionsRouter.get("/", (req, res) => {
       );
       data = transactionsInCategory;
     } else {
-      // handle case where category name is not found
-      // for example, you could return an error response
-      res.status(400).send("Invalid category name");
-      return;
+      data = data;
     }
   }
 
