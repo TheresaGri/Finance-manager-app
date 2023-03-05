@@ -24,7 +24,7 @@ function TransactionList() {
     loadTransactionsData();
   }, []);
 
-  console.log(transactions)
+  console.log(transactions);
   useEffect(() => {
     async function loadCategoryData() {
       setCategories(await fetchCategories());
@@ -43,8 +43,6 @@ function TransactionList() {
 
   function createTransaction() {}
 
-  function createCategory(id: number) {}
-
   return (
     <div className="transactions">
       <div className="containerButtons">
@@ -53,27 +51,30 @@ function TransactionList() {
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
-        <CreateNewCategory onCreateCategory={createCategory} />
+        <CreateNewCategory
+          onSetCategories={setCategories}
+          categories={categories}
+        />
       </div>
 
       <div className="createTransaction">
         {openCreateTransactionModal && (
           <CreateNewTransaction
-          headerText={"Create New Transaction"}
-          onSetTransactions={setTransactions}
-          onCreateTransaction={createTransaction}
-          onCloseWindow={setOpenCreateTransactionModal}
-          inputClassName={"input"}
-          typeText={"text"}
-          typeSelect={"select"}
-          typeDatepicker={"datetime-local"}
-          labelDescription={"Name of Event"}
-          labelDate={"When"}
-          labelAmount={"Amount"}
-          labelCategory={"Category"}
-          labelType={"Type"}
-          transactions={transactions}
-          categories={categories}
+            headerText={"Create New Transaction"}
+            onSetTransactions={setTransactions}
+            onCreateTransaction={createTransaction}
+            onCloseWindow={setOpenCreateTransactionModal}
+            inputClassName={"input"}
+            typeText={"text"}
+            typeSelect={"select"}
+            typeDatepicker={"datetime-local"}
+            labelDescription={"Name of Event"}
+            labelDate={"When"}
+            labelAmount={"Amount"}
+            labelCategory={"Category"}
+            labelType={"Type"}
+            transactions={transactions}
+            categories={categories}
           />
         )}
       </div>
