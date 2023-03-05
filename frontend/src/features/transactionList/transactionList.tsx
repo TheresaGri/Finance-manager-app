@@ -7,6 +7,7 @@ import Category from "../../types/Category";
 import Transaction from "../../types/Transaction";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
 import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
+import EditTransaction from "../editTransaction/EditTransaction";
 import TransactionComponent from "../transaction/TransactionComponent";
 import "./TransactionList.css";
 
@@ -17,13 +18,23 @@ function TransactionList() {
 
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
+  const [openEditTransactionModal, setOpenEditTransactionModal] =
+    useState<boolean>(false);
+  const [transactionToEdit, setTransactionToEdit] = useState<Transaction>({
+    id: 0,
+    description: "",
+    date: "",
+    amount: 0,
+    type: "",
+    category: 0,
+  });
 
-    useEffect(() => {
+  useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions(sortAscending));
     }
     loadTransactionsData();
-  }, [sortAscending]); 
+  }, [sortAscending]);
 
   useEffect(() => {
     async function loadCategoryData() {
@@ -32,7 +43,12 @@ function TransactionList() {
     loadCategoryData();
   }, []);
 
-  function handleClick(id: number) {}
+  function handleClick(id: number) {
+    setTransactionToEdit(
+      transactions.find((transaction) => transaction.id === id)
+    );
+    setOpenEditTransactionModal(true);
+  }
 
   function deleteTransaction(id: number) {
     setTransactions(
@@ -57,9 +73,9 @@ function TransactionList() {
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
-        <CreateNewCategory 
-        onSetCategories={setCategories}
-        categories={categories}
+        <CreateNewCategory
+          onSetCategories={setCategories}
+          categories={categories}
         />
         <Button
           name={"sort by date"}
@@ -109,6 +125,37 @@ function TransactionList() {
           </div>
         );
       })}
+
+      <div className="editEvent">
+        {openEditTransactionModal && (
+          <EditTransaction
+            headerText={"Edit Transaction"}
+            inputClassName={"input"}
+            typeText={"text"}
+            typeSelect={"select"}
+            typeDatepicker={"datetime-local"}
+            labelDescription={"Name of Event"}
+            labelDate={"When"}
+            labelAmount={"Amount"}
+            labelCategory={"Category"}
+            labelType={"Type"}
+            descriptionToEdit={transactionToEdit.description}
+            amountToEdit={transactionToEdit.amount.toString()}
+            dateToEdit={transactionToEdit.date}
+            typeToEdit={transactionToEdit.type}
+            categoryToEdit={
+              categories.find(
+                (category) => category.id === transactionToEdit.category
+              )?.name
+            }
+            onCloseWindow={setOpenEditTransactionModal}
+            onSetTransactions={setTransactions}
+            transactions={transactions}
+            id={transactionToEdit.id}
+            categories={categories}
+          />
+        )}
+      </div>
     </div>
   );
 }
