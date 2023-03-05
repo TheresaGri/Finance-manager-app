@@ -8,15 +8,17 @@ function TransactionComponent(props: {
   date: string;
   description: string;
   type: string;
+  colorOfCategory: string,
+
   onEditTransaction: MouseEventHandler<HTMLButtonElement>;
   onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
-    <div className="transaction">
+    <div className="transaction" style = {{backgroundColor: `${props.colorOfCategory}`  }}>
       <div className={"editTransaction"} onClick={() => props.onEditTransaction}>
         <Text text={`${props.description}`} className={"description"} />
         <Text
-          text={`${props.amount.toString()} €`}
+          text={`${props.amount} €`}
           className={props.type === "Expense" ? "expense" : "deposit"}
         />
         <Text
