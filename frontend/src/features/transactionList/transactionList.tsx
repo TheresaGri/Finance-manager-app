@@ -99,7 +99,7 @@ function TransactionList() {
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Event"}
+            labelDescription={"Name of Transaction"}
             labelDate={"When"}
             labelAmount={"Amount"}
             labelCategory={"Category"}
@@ -119,6 +119,7 @@ function TransactionList() {
               date={transaction.date}
               description={transaction.description}
               type={transaction.type}
+              category= {categories.find(category => category.id === transaction.id)?.name}
               onEditTransaction={() => handleClick(transaction.id)}
               onDeleteTransaction={() => deleteTransaction(transaction.id)}
             />
@@ -126,7 +127,7 @@ function TransactionList() {
         );
       })}
 
-      <div className="editEvent">
+      <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
             headerText={"Edit Transaction"}

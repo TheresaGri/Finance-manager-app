@@ -9,7 +9,7 @@ function TransactionComponent(props: {
   description: string;
   type: string;
   colorOfCategory: string,
-
+  category:string;
   onEditTransaction: MouseEventHandler<HTMLButtonElement>;
   onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {
@@ -24,6 +24,10 @@ function TransactionComponent(props: {
         <Text
           className={"date"}
           text={`${props.date.substring(0, 10)} ${props.date.split("T")[1]}`}
+        />
+        <Text
+          className={"category"}
+          text={`${props.category}`}
         />
       </div>
       <div className="buttonContainer">
