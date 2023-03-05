@@ -31,6 +31,8 @@ function CreateNewTransaction(props: {
   const [type, setType] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
+  const mandatoryFields = description.length > 0 && amount.length && date.length > 0;
+
   function createTransaction():void {
     
     let foundCategory:Category | undefined = props.categories.find(cat => cat.name === category)
@@ -93,7 +95,7 @@ function CreateNewTransaction(props: {
         <div className="footer">
           <Button
             name={"Save"}
-            className={"save"}
+            className={mandatoryFields ? "save": "saveDisabled"}
             onClick={() => createTransaction()}
           />
           <Button

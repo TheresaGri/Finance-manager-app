@@ -119,7 +119,10 @@ function TransactionList() {
               date={transaction.date}
               description={transaction.description}
               type={transaction.type}
-              category= {categories.find(category => category.id === transaction.id)?.name}
+              category={
+                categories.find((category) => category.id === transaction.id)
+                  ?.name
+              }
               onEditTransaction={() => handleClick(transaction.id)}
               onDeleteTransaction={() => deleteTransaction(transaction.id)}
             />

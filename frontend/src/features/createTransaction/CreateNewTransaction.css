@@ -59,3 +59,8 @@
     background-color: lightgrey;
     margin: 10px;
   }
+
+  .saveDisabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }

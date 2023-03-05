@@ -8,6 +8,7 @@ import Label from "../../components/Label";
 import Select from "../../components/Select";
 import Category from "../../types/Category";
 import Transaction from "../../types/Transaction";
+import './EditTransaction.css'
 
 function editTransaction(props: {
   headerText: string;
@@ -39,9 +40,9 @@ function editTransaction(props: {
   );
   const [updatedDate, setUpdatedDate] = useState<string>(props.dateToEdit);
   const [updatedType, setUpdatedType] = useState<string>(props.typeToEdit);
-  const [updatedCategory, setUpdatedCategory] = useState<string>(
-    props.categoryToEdit
-  );
+  const [updatedCategory, setUpdatedCategory] = useState<string>();
+
+  const mandatoryFields = updatedDescription.length > 0 && updatedAmount.length && updatedDate.length > 0;
 
   function editTransaction(): void {
     let newData = {
@@ -113,7 +114,7 @@ function editTransaction(props: {
         <div className="footer">
           <Button
             name={"Save"}
-            className={"save"}
+            className={mandatoryFields ? "save": "saveDisabled"}
             onClick={() => editTransaction()}
           />
           <Button
