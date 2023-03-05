@@ -61,8 +61,7 @@ transactionsRouter.post("/", (req, res) => {
     maxId = Math.max(maxId, transaction.id);
   }
   newTransaction.id = maxId + 1;
-
-  transactions.push(newTransaction);
+  transactions = [...transactions, newTransaction];
   fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
   res.json({ status: "success" });
 });
