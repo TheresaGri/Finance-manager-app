@@ -18,7 +18,7 @@ function TransactionComponent(props: {
       <div className={"editTransaction"} onClick={() => props.onEditTransaction}>
         <Text text={`${props.description}`} className={"description"} />
         <Text
-          text={`${props.amount.toString()} €`}
+          text={`${props.amount} €`}
           className={props.type === "Expense" ? "expense" : "deposit"}
         />
         <Text

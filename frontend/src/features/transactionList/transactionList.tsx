@@ -57,7 +57,10 @@ function TransactionList() {
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
-        <CreateNewCategory />
+        <CreateNewCategory 
+        onSetCategories={setCategories}
+        categories={categories}
+        />
         <Button
           name={"sort by date"}
           className={"sortByDateButton"}
@@ -75,7 +78,6 @@ function TransactionList() {
           <CreateNewTransaction
             headerText={"Create New Transaction"}
             onSetTransactions={setTransactions}
-            onCreateTransaction={createTransaction}
             onCloseWindow={setOpenCreateTransactionModal}
             inputClassName={"input"}
             typeText={"text"}

@@ -12,7 +12,6 @@ import "./CreateNewTransaction.css";
 function CreateNewTransaction(props: {
   headerText: string;
   onSetTransactions: Function;
-  onCreateTransaction: Function;
   onCloseWindow: Function;
   inputClassName: string;
   typeText: string;
@@ -35,11 +34,12 @@ function CreateNewTransaction(props: {
   function createTransaction():void {
     
     let foundCategory:Category | undefined = props.categories.find(cat => cat.name === category)
-
-    console.log(foundCategory)
+    if(amount === "") {
+      
+    }
     let newTransaction = {
       description: description,
-      amount:parseInt(amount),
+      amount: amount === "" ? 0:parseInt(amount),
       date:date,
       categoryId:foundCategory?.id,
       type:type
