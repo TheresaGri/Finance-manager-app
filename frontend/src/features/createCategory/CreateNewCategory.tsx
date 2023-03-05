@@ -13,7 +13,7 @@ function CreateNewCategory(props: { onSetCategories: Function, categories: Array
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
 
-  function createTransaction(): void {
+  function createCategory(): void {
     let newCategory = {
       name: categoryText,
       color: color,
@@ -57,7 +57,7 @@ function CreateNewCategory(props: { onSetCategories: Function, categories: Array
                 <Button
                   name={"Save"}
                   className={"save"}
-                  onClick={() => createTransaction()}
+                  onClick={() => createCategory()}
                 />
                 <Button
                   name={"Cancel"}
