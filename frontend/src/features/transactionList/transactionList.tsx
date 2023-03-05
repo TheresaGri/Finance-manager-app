@@ -13,23 +13,24 @@ import "./TransactionList.css";
 function TransactionList() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
+  const [sortAscending, setSortAsending] = useState<string>("");
 
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
 
-  useEffect(() => {
+/*   useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions());
     }
     loadTransactionsData();
-  }, []);
+  }, []); */
 
   useEffect(() => {
-    async function loadTransactionsData() {
-      setTransactions(await fetchTransactions());
+    async function loadTransactionsData(sortAscending: string) {
+      setTransactions(await fetchTransactions(sortAscending));
     }
-    loadTransactionsData();
-  }, [transactions]);
+    loadTransactionsData(sortAscending);
+  }, [transactions, sortAscending]);
 
   useEffect(() => {
     async function loadCategoryData() {
@@ -47,9 +48,7 @@ function TransactionList() {
     deleteTransactionRequest(id);
   }
 
-  function createTransaction() {}
 
-  function createCategory(id: number) {}
 
   return (
     <div className="transactions">
@@ -59,7 +58,17 @@ function TransactionList() {
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
-        <CreateNewCategory onCreateCategory={createCategory} />
+        <CreateNewCategory/>
+        <Button 
+          name = {"sort by date"}
+          className = {"sortByDateButton"}
+          onClick= {() => setSortAsending("date") }
+        ></Button>
+        <Button 
+          name = {"sort by amount"}
+          className = {"sortByAmountButton"}
+          onClick= {() => setSortAsending("amount") }
+        ></Button>
       </div>
 
       <div className="createTransaction">
