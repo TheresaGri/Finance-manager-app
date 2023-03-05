@@ -44,7 +44,7 @@ function CreateNewTransaction(props: {
       categoryId:foundCategory?.id,
       type:type
     }
-
+    props.onSetTransactions([...props.transactions, newTransaction]);
     postTransaction(newTransaction);
 
     props.onCloseWindow(false);

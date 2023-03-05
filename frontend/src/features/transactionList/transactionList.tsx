@@ -24,13 +24,7 @@ function TransactionList() {
     loadTransactionsData();
   }, []);
 
-  useEffect(() => {
-    async function loadTransactionsData() {
-      setTransactions(await fetchTransactions());
-    }
-    loadTransactionsData();
-  }, [transactions]);
-
+  console.log(transactions)
   useEffect(() => {
     async function loadCategoryData() {
       setCategories(await fetchCategories());
