@@ -18,12 +18,12 @@ function TransactionList() {
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
 
-/*   useEffect(() => {
+    useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions());
     }
     loadTransactionsData();
-  }, []); */
+  }, []); 
 
   useEffect(() => {
     async function loadTransactionsData(sortAscending: string) {
@@ -47,8 +47,14 @@ function TransactionList() {
     );
     deleteTransactionRequest(id);
   }
-
-
+  function getBackgroundColor(categoryId: number) {
+    let category = categories.find((category) => category.id === categoryId);
+    if (category !== undefined) {
+      return category.color;
+    } else {
+      return "white";
+    }
+  }
 
   return (
     <div className="transactions">
@@ -58,37 +64,37 @@ function TransactionList() {
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
-        <CreateNewCategory/>
-        <Button 
-          name = {"sort by date"}
-          className = {"sortByDateButton"}
-          onClick= {() => setSortAsending("date") }
+        <CreateNewCategory />
+        <Button
+          name={"sort by date"}
+          className={"sortByDateButton"}
+          onClick={() => setSortAsending("date")}
         ></Button>
-        <Button 
-          name = {"sort by amount"}
-          className = {"sortByAmountButton"}
-          onClick= {() => setSortAsending("amount") }
+        <Button
+          name={"sort by amount"}
+          className={"sortByAmountButton"}
+          onClick={() => setSortAsending("amount")}
         ></Button>
       </div>
 
       <div className="createTransaction">
         {openCreateTransactionModal && (
           <CreateNewTransaction
-          headerText={"Create New Transaction"}
-          onSetTransactions={setTransactions}
-          onCreateTransaction={createTransaction}
-          onCloseWindow={setOpenCreateTransactionModal}
-          inputClassName={"input"}
-          typeText={"text"}
-          typeSelect={"select"}
-          typeDatepicker={"datetime-local"}
-          labelDescription={"Name of Event"}
-          labelDate={"When"}
-          labelAmount={"Amount"}
-          labelCategory={"Category"}
-          labelType={"Type"}
-          transactions={transactions}
-          categories={categories}
+            headerText={"Create New Transaction"}
+            onSetTransactions={setTransactions}
+            onCreateTransaction={createTransaction}
+            onCloseWindow={setOpenCreateTransactionModal}
+            inputClassName={"input"}
+            typeText={"text"}
+            typeSelect={"select"}
+            typeDatepicker={"datetime-local"}
+            labelDescription={"Name of Event"}
+            labelDate={"When"}
+            labelAmount={"Amount"}
+            labelCategory={"Category"}
+            labelType={"Type"}
+            transactions={transactions}
+            categories={categories}
           />
         )}
       </div>
@@ -96,6 +102,7 @@ function TransactionList() {
         return (
           <div>
             <TransactionComponent
+              colorOfCategory={getBackgroundColor(transaction.categoryId)}
               key={transaction.id}
               amount={transaction.amount}
               date={transaction.date}
