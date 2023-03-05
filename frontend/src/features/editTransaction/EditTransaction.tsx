@@ -44,53 +44,32 @@ function editTransaction(props: {
   );
 
   function editTransaction(): void {
-    if (updatedDate === props.dateToEdit) {
-      const newData = {
-        name: updatedDescription,
-        category: updatedCategory,
-      };
+    let newData = {
+      id: props.id,
+      amount: updatedAmount,
+      description: updatedDescription,
+      date: updatedDate,
+      type: updatedType,
+      category: updatedCategory,
+    };
+    let transactionsUpdated = props.transactions.map((transaction) => {
+      if (props.id === transaction.id) {
+        return {
+          ...transaction,
+          ...newData,
+        };
+      } else {
+        return transaction;
+      }
+    });
+    console.log(props.transactions)
+    props.onSetTransactions(transactionsUpdated);
+    putTransaction(newData, props.id);
 
-      patchTransaction(newData, props.id);
-
-      props.transactions.map((transaction) =>
-        transaction.id === props.id
-          ? { ...transaction, ...newData }
-          : transaction
-      );
-
-      props.onSetTransactions(props.transactions);
-      props.onCloseWindow(false);
-    } else {
-      let newData = {
-        id: props.id,
-        name: updatedDescription,
-        date: updatedDate,
-        category: updatedCategory,
-      };
-      let eventsWithNewData = props.transactions.map((transaction) => {
-        if (props.id === transaction.id) {
-          return {
-            ...transaction,
-            ...newData,
-          };
-        } else {
-          return transaction;
-        }
-      });
-      putTransaction(
-        {
-          id: props.id,
-          name: updatedDescription,
-          date: updatedDate,
-          category: updatedCategory,
-        },
-        props.id
-      );
-
-      props.onSetTransactions(eventsWithNewData);
-      props.onCloseWindow(false);
-    }
+   
+    props.onCloseWindow(false);
   }
+
   return (
     <div className="modalOverlay">
       <div className="modalContainer">

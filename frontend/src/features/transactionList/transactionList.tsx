@@ -134,7 +134,7 @@ function TransactionList() {
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Event"}
+            labelDescription={"Name of Transaction"}
             labelDate={"When"}
             labelAmount={"Amount"}
             labelCategory={"Category"}
