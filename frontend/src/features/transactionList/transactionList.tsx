@@ -13,24 +13,17 @@ import "./TransactionList.css";
 function TransactionList() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
-  const [sortAscending, setSortAsending] = useState<string>("");
+  const [sortAscending, setSortAscending] = useState<string>("");
 
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
 
     useEffect(() => {
     async function loadTransactionsData() {
-      setTransactions(await fetchTransactions());
-    }
-    loadTransactionsData();
-  }, []); 
-
-  useEffect(() => {
-    async function loadTransactionsData(sortAscending: string) {
       setTransactions(await fetchTransactions(sortAscending));
     }
-    loadTransactionsData(sortAscending);
-  }, [transactions, sortAscending]);
+    loadTransactionsData();
+  }, [sortAscending]); 
 
   useEffect(() => {
     async function loadCategoryData() {
@@ -68,12 +61,12 @@ function TransactionList() {
         <Button
           name={"sort by date"}
           className={"sortByDateButton"}
-          onClick={() => setSortAsending("date")}
+          onClick={() => setSortAscending("date")}
         ></Button>
         <Button
           name={"sort by amount"}
           className={"sortByAmountButton"}
-          onClick={() => setSortAsending("amount")}
+          onClick={() => setSortAscending("amount")}
         ></Button>
       </div>
 
