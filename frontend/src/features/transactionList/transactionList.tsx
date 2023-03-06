@@ -27,9 +27,9 @@ function TransactionList() {
     date: "",
     amount: 0,
     type: "",
-    category: 0,
+    categoryId: 0,
   });
-  const [transactionsPerPage] = useState<number>(5);
+  const transactionsPerPage = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const indexOfLastTransaction: number = currentPage * transactionsPerPage;
   const indexOfFirstTransaction: number =
@@ -76,7 +76,7 @@ function TransactionList() {
       return "white";
     }
   }
-
+  console.log(currentTransaction)
   return (
     <div className="transactions">
       <div className="containerButtons">
@@ -132,7 +132,7 @@ function TransactionList() {
               description={transaction.description}
               type={transaction.type}
               category={
-                categories.find((category) => category.id === transaction.id)
+                categories.find((category) => category.id === transaction.categoryId)
                   ?.name
               }
               onEditTransaction={() => handleClick(transaction.id)}
@@ -141,13 +141,7 @@ function TransactionList() {
           </div>
         );
       })}
-      <div>
-        <Pagination
-          transactionsPerPage={transactionsPerPage}
-          totalTransactions={transactions.length}
-          paginate={paginate}
-        />
-      </div>
+    
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
@@ -167,7 +161,7 @@ function TransactionList() {
             typeToEdit={transactionToEdit.type}
             categoryToEdit={
               categories.find(
-                (category) => category.id === transactionToEdit.category
+                (category) => category.id === transactionToEdit.categoryId
               )?.name
             }
             onCloseWindow={setOpenEditTransactionModal}
@@ -177,6 +171,13 @@ function TransactionList() {
             categories={categories}
           />
         )}
+      </div>
+      <div className="pagination">
+        <Pagination
+          transactionsPerPage={transactionsPerPage}
+          totalTransactions={transactions.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );
