@@ -43,10 +43,10 @@ function TransactionList() {
 
   useEffect(() => {
     async function loadTransactionsData() {
-      setTransactions(await fetchTransactions(sortAscending));
+      setTransactions(await fetchTransactions());
     }
     loadTransactionsData();
-  }, [sortAscending]);
+  }, []);
 
   useEffect(() => {
     async function loadCategoryData() {

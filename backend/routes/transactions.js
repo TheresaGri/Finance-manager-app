@@ -1,10 +1,27 @@
 import express from "express";
 import fs from "fs";
+import { MongoClient } from "mongodb";
 
 const transactionsRouter = express.Router();
 
-transactionsRouter.get("/", (req, res) => {
-  let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
+async function establishConnection() {
+  const client = await MongoClient.connect(
+    "mongodb+srv://kenavm:EIBZDgkt7Ze2Y5jb@cluster0.ecks9tp.mongodb.net/financeApp?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+
+  return db;
+}
+const db = await establishConnection();
+async function loadData() {
+  const collection = db.collection("transactions");
+  return await collection.find().toArray();
+}
+
+transactionsRouter.get("/", async (req, res) => {
+  const data = await loadData();
+  console.log(data);
+
   let categories = JSON.parse(fs.readFileSync("./data/categories.json"));
 
   if (req.query.sortAscending === "date") {
@@ -52,7 +69,7 @@ transactionsRouter.get("/:id", (req, res) => {
   res.json(transactionId);
 });
 
-transactionsRouter.post("/", (req, res) => {
+transactionsRouter.post("/", async (req, res) => {
   const newTransaction = req.body;
   let transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
 
@@ -62,7 +79,8 @@ transactionsRouter.post("/", (req, res) => {
   }
   newTransaction.id = maxId + 1;
   transactions = [...transactions, newTransaction];
-  fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
+  const transactionsCollection = db.collection("transactions");
+  await transactionsCollection.insertMany(transactions);
   res.json({ status: "success" });
 });
 
@@ -78,16 +96,12 @@ transactionsRouter.put("/:id", (req, res) => {
   fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions));
 });
 
-transactionsRouter.delete("/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const transactions = JSON.parse(fs.readFileSync("./data/transactions.json"));
-  const filteredTransactions = transactions.filter(
-    (transaction) => transaction.id !== id
-  );
-  fs.writeFileSync(
-    "./data/transactions.json",
-    JSON.stringify(filteredTransactions)
-  );
+transactionsRouter.delete("/:id", async (req, res) => {
+  console.log(req.params.id)
+  const result = await db
+    .collection("transactions")
+    .deleteOne({ _id: ObjectId(req.params.id) });
+
 });
 
 transactionsRouter.patch("/:id", (req, res) => {
