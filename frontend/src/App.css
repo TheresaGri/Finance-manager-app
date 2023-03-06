@@ -3,3 +3,10 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.bankLogo {
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
