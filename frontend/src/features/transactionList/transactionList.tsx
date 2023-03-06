@@ -3,6 +3,7 @@ import { deleteTransactionRequest } from "../../api/deleteTransaction";
 import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import Button from "../../components/Button";
+import Pagination from "../../components/Pagination";
 import Category from "../../types/Category";
 import Transaction from "../../types/Transaction";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
@@ -28,6 +29,17 @@ function TransactionList() {
     type: "",
     category: 0,
   });
+  const [transactionsPerPage] = useState<number>(5);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const indexOfLastTransaction: number = currentPage * transactionsPerPage;
+  const indexOfFirstTransaction: number =
+    indexOfLastTransaction - transactionsPerPage;
+  const currentTransaction: Array<Transaction> = transactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function loadTransactionsData() {
@@ -109,7 +121,7 @@ function TransactionList() {
           />
         )}
       </div>
-      {transactions.map((transaction) => {
+      {currentTransaction.map((transaction) => {
         return (
           <div>
             <TransactionComponent
@@ -129,7 +141,13 @@ function TransactionList() {
           </div>
         );
       })}
-
+      <div>
+        <Pagination
+          transactionsPerPage={transactionsPerPage}
+          totalTransactions={transactions.length}
+          paginate={paginate}
+        />
+      </div>
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
