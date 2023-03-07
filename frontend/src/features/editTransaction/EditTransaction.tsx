@@ -8,7 +8,8 @@ import Label from "../../components/Label";
 import Select from "../../components/Select";
 import Category from "../../types/Category";
 import Transaction from "../../types/Transaction";
-import './EditTransaction.css'
+import createPagination from "../createPagination/createPagination";
+import './editTransaction.css'
 
 function editTransaction(props: {
   headerText: string;
@@ -71,7 +72,8 @@ function editTransaction(props: {
     props.onCloseWindow(false);
   }
 
-  return (
+  return (<div>
+    <createPagination></createPagination>
     <div className="modalOverlay">
       <div className="modalContainer">
         <div className="title">
@@ -124,6 +126,7 @@ function editTransaction(props: {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }
