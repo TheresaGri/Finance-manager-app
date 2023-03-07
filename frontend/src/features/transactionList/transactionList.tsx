@@ -8,6 +8,7 @@ import Transaction from "../../types/Transaction";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
 import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
 import EditTransaction from "../editTransaction/EditTransaction";
+import Statistics from "../statistics/Statistics";
 import TransactionComponent from "../transaction/TransactionComponent";
 import "./TransactionList.css";
 
@@ -28,7 +29,8 @@ function TransactionList() {
     type: "",
     category: 0,
   });
-
+  const [sumOfAllIncome, setSumOfAllIncome] = useState<number>();
+  const [sumOfAllExpenses, setSumOfAllExpenses] = useState<number>();
   useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions(sort));
@@ -42,6 +44,36 @@ function TransactionList() {
     }
     loadCategoryData();
   }, []);
+
+  useEffect(() => {
+    function calcSumOfAllIncome() {
+      let sum: number = 0;
+      transactions.forEach((transaction) => {
+        if (transaction.type === "Income") {
+          console.log(sum)
+          sum += transaction.amount;
+        }
+      });
+
+      setSumOfAllIncome(sum);
+    }
+    calcSumOfAllIncome();
+  }, [transactions]);
+
+  useEffect(() => {
+    function calcSumOfAllExpenses() {
+      let sum: number = 0;
+      transactions.forEach((transaction) => {
+        if (transaction.type === "Expense") {
+          console.log(sum);
+          sum += transaction.amount * -1;
+        }
+      });
+
+      setSumOfAllExpenses(sum);
+    }
+    calcSumOfAllExpenses();
+  }, [transactions]);
 
   function handleClick(id: number) {
     setTransactionToEdit(
@@ -71,6 +103,10 @@ function TransactionList() {
 
   return (
     <div className="transactions">
+      <Statistics
+        sumOfAllIncome={sumOfAllIncome}
+        sumOfAllExpenses={sumOfAllExpenses}
+      />
       <div className="containerButtons">
         <Button
           name={"Create Transaction"}
@@ -172,6 +208,7 @@ function TransactionList() {
           />
         )}
       </div>
+      
     </div>
   );
 }

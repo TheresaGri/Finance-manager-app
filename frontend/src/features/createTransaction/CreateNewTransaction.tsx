@@ -87,7 +87,7 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Deposit"]}
+            values={["Expense", "Income"]}
             value={type}
             onChange={(e) => setType(e.target.value)}
           />
