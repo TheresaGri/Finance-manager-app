@@ -15,7 +15,7 @@ function TransactionList() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [sort, setSort] = useState<string>("");
-  const [sortOrder, setsortOrder] = useState<boolean>(true);
+  const [sortOrder, setSortOrder] = useState<boolean>(true);
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
   const [openEditTransactionModal, setOpenEditTransactionModal] =
@@ -65,7 +65,7 @@ function TransactionList() {
     }
   }
   function handleSortClick(sortString: string) {
-    setsortOrder(!sortOrder);
+    setSortOrder(!sortOrder);
     setSort(sortString);
   }
 
