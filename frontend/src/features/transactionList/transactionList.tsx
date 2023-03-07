@@ -103,6 +103,10 @@ function TransactionList() {
 
   return (
     <div className="transactions">
+      <Statistics
+        sumOfAllIncome={sumOfAllIncome}
+        sumOfAllExpenses={sumOfAllExpenses}
+      />
       <div className="containerButtons">
         <Button
           name={"Create Transaction"}
@@ -204,10 +208,7 @@ function TransactionList() {
           />
         )}
       </div>
-      <Statistics
-        sumOfAllIncome={sumOfAllIncome}
-        sumOfAllExpenses={sumOfAllExpenses}
-      />
+      
     </div>
   );
 }
