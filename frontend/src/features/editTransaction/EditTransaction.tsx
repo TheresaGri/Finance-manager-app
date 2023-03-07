@@ -44,9 +44,13 @@ function editTransaction(props: {
   const mandatoryFields = updatedDescription.length > 0 && updatedAmount.length && updatedDate.length > 0;
 
   function editTransaction(): void {
+    let updatedAmountNumber = parseInt(updatedAmount)
+    if(updatedType !== props.typeToEdit) {
+      updatedAmountNumber = updatedAmountNumber*(-1);
+    }
     let newData = {
       id: props.id,
-      amount: updatedAmount,
+      amount: updatedAmountNumber,
       description: updatedDescription,
       date: updatedDate,
       type: updatedType,
@@ -105,7 +109,7 @@ function editTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Deposit"]}
+            values={["Expense", "Income"]}
             value={updatedType}
             onChange={(e) => setUpdatedType(e.target.value)}
           />
