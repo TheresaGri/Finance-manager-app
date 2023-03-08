@@ -5,8 +5,8 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Select from "../../components/Select";
-import Category from "../../types/Category";
-import Transaction from "../../types/Transaction";
+import CategoryType from "../../utils/types/CategoryType";
+import TransactionType from "../../utils/types/TransactionType";
 import './EditTransaction.css'
 
 function editTransaction(props: {
@@ -22,8 +22,8 @@ function editTransaction(props: {
   labelAmount: string;
   labelCategory: string;
   labelType: string;
-  transactions: Array<Transaction>;
-  categories: Array<Category>;
+  transactions: Array<TransactionType>;
+  categories: Array<CategoryType>;
   id: number;
   descriptionToEdit: string;
   amountToEdit: string;

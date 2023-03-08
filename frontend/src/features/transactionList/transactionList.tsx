@@ -3,8 +3,8 @@ import { deleteTransactionRequest } from "../../api/deleteTransaction";
 import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import Button from "../../components/Button";
-import Category from "../../types/Category";
-import Transaction from "../../types/Transaction";
+import CategoryType from "../../utils/types/CategoryType";
+import TransactionType from "../../utils/types/TransactionType";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
 import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
 import EditTransaction from "../editTransaction/EditTransaction";
@@ -13,15 +13,15 @@ import TransactionComponent from "../transaction/TransactionComponent";
 import "./TransactionList.css";
 
 function TransactionList() {
-  const [transactions, setTransactions] = useState<Array<Transaction>>([]);
-  const [categories, setCategories] = useState<Array<Category>>([]);
+  const [transactions, setTransactions] = useState<Array<TransactionType>>([]);
+  const [categories, setCategories] = useState<Array<CategoryType>>([]);
   const [sort, setSort] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<boolean>(true);
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
     useState<boolean>(false);
   const [openEditTransactionModal, setOpenEditTransactionModal] =
     useState<boolean>(false);
-  const [transactionToEdit, setTransactionToEdit] = useState<Transaction>({
+  const [transactionToEdit, setTransactionToEdit] = useState<TransactionType>({
     id: 0,
     description: "",
     date: "",
@@ -111,7 +111,7 @@ function TransactionList() {
       />
       <div className="containerButtons">
         <Button
-          name={"Create Transaction"}
+          name={"Create TransactionType"}
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
@@ -142,17 +142,17 @@ function TransactionList() {
       <div className="createTransaction">
         {openCreateTransactionModal && (
           <CreateNewTransaction
-            headerText={"Create New Transaction"}
+            headerText={"Create New TransactionType"}
             onSetTransactions={setTransactions}
             onCloseWindow={setOpenCreateTransactionModal}
             inputClassName={"input"}
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Transaction"}
+            labelDescription={"Name of TransactionType"}
             labelDate={"When"}
             labelAmount={"Amount"}
-            labelCategory={"Category"}
+            labelCategory={"CategoryType"}
             labelType={"Type"}
             transactions={transactions}
             categories={categories}
@@ -183,15 +183,15 @@ function TransactionList() {
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
-            headerText={"Edit Transaction"}
+            headerText={"Edit TransactionType"}
             inputClassName={"input"}
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Transaction"}
+            labelDescription={"Name of TransactionType"}
             labelDate={"When"}
             labelAmount={"Amount"}
-            labelCategory={"Category"}
+            labelCategory={"CategoryType"}
             labelType={"Type"}
             descriptionToEdit={transactionToEdit.description}
             amountToEdit={transactionToEdit.amount.toString()}
