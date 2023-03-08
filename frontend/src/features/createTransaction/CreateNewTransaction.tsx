@@ -35,7 +35,7 @@ function CreateNewTransaction(props: {
 
   function createTransaction():void {
     
-    let foundCategory:Category | undefined = props.categories.find(cat => cat.name === category)
+    let foundCategory:CategoryType | undefined = props.categories.find(cat => cat.name === category)
     if(amount === "") {
       
     }

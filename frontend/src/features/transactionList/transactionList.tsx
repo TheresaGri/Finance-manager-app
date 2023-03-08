@@ -111,7 +111,7 @@ function TransactionList() {
       />
       <div className="containerButtons">
         <Button
-          name={"Create TransactionType"}
+          name={"Create Transaction"}
           className={"createTransaction"}
           onClick={() => setOpenCreateTransactionModal(true)}
         />
@@ -142,17 +142,17 @@ function TransactionList() {
       <div className="createTransaction">
         {openCreateTransactionModal && (
           <CreateNewTransaction
-            headerText={"Create New TransactionType"}
+            headerText={"Create New Transaction"}
             onSetTransactions={setTransactions}
             onCloseWindow={setOpenCreateTransactionModal}
             inputClassName={"input"}
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of TransactionType"}
+            labelDescription={"Name of Transaction"}
             labelDate={"When"}
             labelAmount={"Amount"}
-            labelCategory={"CategoryType"}
+            labelCategory={"Category"}
             labelType={"Type"}
             transactions={transactions}
             categories={categories}
@@ -183,15 +183,15 @@ function TransactionList() {
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
-            headerText={"Edit TransactionType"}
+            headerText={"Edit Transaction"}
             inputClassName={"input"}
             typeText={"text"}
             typeSelect={"select"}
             typeDatepicker={"datetime-local"}
-            labelDescription={"Name of TransactionType"}
+            labelDescription={"Name of Transaction"}
             labelDate={"When"}
             labelAmount={"Amount"}
-            labelCategory={"CategoryType"}
+            labelCategory={"Category"}
             labelType={"Type"}
             descriptionToEdit={transactionToEdit.description}
             amountToEdit={transactionToEdit.amount.toString()}
