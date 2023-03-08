@@ -29,8 +29,8 @@ function TransactionList() {
     type: "",
     category: 0,
   });
-  const [sumOfAllIncome, setSumOfAllIncome] = useState<number>();
-  const [sumOfAllExpenses, setSumOfAllExpenses] = useState<number>();
+  const [sumOfAllIncome, setSumOfAllIncome] = useState<number>(0);
+  const [sumOfAllExpenses, setSumOfAllExpenses] = useState<number>(0);
   useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions(sort));
@@ -170,7 +170,7 @@ function TransactionList() {
               description={transaction.description}
               type={transaction.type}
               category={
-                categories.find((category) => category.id === transaction.id)
+                categories.find((category) => category.id === transaction.categoryId)
                   ?.name
               }
               onEditTransaction={() => handleClick(transaction.id)}

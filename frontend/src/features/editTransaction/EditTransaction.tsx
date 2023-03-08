@@ -48,13 +48,14 @@ function editTransaction(props: {
     if(updatedType !== props.typeToEdit) {
       updatedAmountNumber = updatedAmountNumber*(-1);
     }
+    console.log(updatedCategory)
     let newData = {
       id: props.id,
       amount: updatedAmountNumber,
       description: updatedDescription,
       date: updatedDate,
       type: updatedType,
-      category: updatedCategory,
+      categoryId: props.categories.find(category => category.name === updatedCategory)?.id
     };
     let transactionsUpdated = props.transactions.map((transaction) => {
       if (props.id === transaction.id) {
@@ -66,7 +67,7 @@ function editTransaction(props: {
         return transaction;
       }
     });
-    console.log(props.transactions)
+    console.log(transactionsUpdated)
     props.onSetTransactions(transactionsUpdated);
     patchTransaction(newData, props.id);
 

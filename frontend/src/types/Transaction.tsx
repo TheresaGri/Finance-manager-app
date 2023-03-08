@@ -4,7 +4,7 @@ type Transaction = {
   date: string;
   description: string;
   type: string;
-  category: number;
+  categoryId: number;
 };
 
 export default Transaction;
