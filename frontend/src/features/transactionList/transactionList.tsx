@@ -47,13 +47,14 @@ function TransactionList() {
 
   useEffect(() => {
     function calcSumOfAllIncome() {
-      let sum: number = 0;
-      transactions.forEach((transaction) => {
+      let sum = 0;
+
+      sum = transactions.reduce((acc, transaction) => {
         if (transaction.type === "Income") {
-          console.log(sum)
-          sum += transaction.amount;
+          return acc + transaction.amount;
         }
-      });
+        return acc;
+      }, 0);
 
       setSumOfAllIncome(sum);
     }
@@ -62,13 +63,14 @@ function TransactionList() {
 
   useEffect(() => {
     function calcSumOfAllExpenses() {
-      let sum: number = 0;
-      transactions.forEach((transaction) => {
+      let sum = 0;
+
+      sum = transactions.reduce((acc, transaction) => {
         if (transaction.type === "Expense") {
-          console.log(sum);
-          sum += transaction.amount * -1;
+          return acc + transaction.amount * -1;
         }
-      });
+        return acc;
+      }, 0);
 
       setSumOfAllExpenses(sum);
     }
@@ -208,7 +210,6 @@ function TransactionList() {
           />
         )}
       </div>
-      
     </div>
   );
 }
