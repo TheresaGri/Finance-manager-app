@@ -141,18 +141,8 @@ function TransactionList() {
       <div className="createTransaction">
         {openCreateTransactionModal && (
           <CreateNewTransaction
-            headerText={"Create New Transaction"}
             onSetTransactions={setTransactions}
             onCloseWindow={setOpenCreateTransactionModal}
-            inputClassName={"input"}
-            typeText={"text"}
-            typeSelect={"select"}
-            typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Transaction"}
-            labelDate={"When"}
-            labelAmount={"Amount"}
-            labelCategory={"Category"}
-            labelType={"Type"}
             transactions={transactions}
             categories={categories}
           />
