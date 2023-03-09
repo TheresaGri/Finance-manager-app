@@ -95,7 +95,7 @@ function editTransaction(props: {
     props.onCloseWindow(false);
   }
 
-  return (
+  return (<div>
     <div className="modalOverlay">
       <div className="modalContainer">
         <div className="title">
@@ -148,6 +148,7 @@ function editTransaction(props: {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

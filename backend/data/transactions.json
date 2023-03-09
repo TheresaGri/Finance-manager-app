@@ -92,7 +92,7 @@
     "amount": 299,
     "description": "Peek&Cloppenburg",
     "date": "2023-01-12T15:01",
-    "type": "",
-    "categoryId": 5
+    "type": "Expense",
+    "categoryId":5
   }
 ]
