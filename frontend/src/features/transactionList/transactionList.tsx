@@ -3,7 +3,7 @@ import { deleteTransactionRequest } from "../../api/deleteTransaction";
 import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import Button from "../../components/Button";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/Pagination/Pagination";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
@@ -22,14 +22,7 @@ function TransactionList() {
     useState<boolean>(false);
   const [openEditTransactionModal, setOpenEditTransactionModal] =
     useState<boolean>(false);
-  const [transactionToEdit, setTransactionToEdit] = useState<TransactionType>({
-    id: 0,
-    description: "",
-    date: "",
-    amount: 0,
-    type: "",
-    categoryId: 0,
-  });
+  const [transactionToEdit, setTransactionToEdit] = useState<TransactionType | undefined>();
   const transactionsPerPage = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const indexOfLastTransaction: number = currentPage * transactionsPerPage;
@@ -41,6 +34,7 @@ function TransactionList() {
   );
   const [sumOfAllIncome, setSumOfAllIncome] = useState<number>(0);
   const [sumOfAllExpenses, setSumOfAllExpenses] = useState<number>(0);
+  
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
@@ -90,9 +84,8 @@ function TransactionList() {
   }, [transactions]);
 
   function handleClick(id: number) {
-    setTransactionToEdit(
-      transactions.find((transaction) => transaction.id === id)
-    );
+    const transaction:TransactionType | undefined = transactions.find((transaction) => transaction.id === id);
+    setTransactionToEdit(transaction);
     setOpenEditTransactionModal(true);
   }
 
@@ -205,19 +198,19 @@ function TransactionList() {
             labelAmount={"Amount"}
             labelCategory={"Category"}
             labelType={"Type"}
-            descriptionToEdit={transactionToEdit.description}
-            amountToEdit={transactionToEdit.amount.toString()}
-            dateToEdit={transactionToEdit.date}
-            typeToEdit={transactionToEdit.type}
+            descriptionToEdit={transactionToEdit?.description}
+            amountToEdit={transactionToEdit!.amount.toString()}
+            dateToEdit={transactionToEdit!.date}
+            typeToEdit={transactionToEdit!.type}
             categoryToEdit={
               categories.find(
-                (category) => category.id === transactionToEdit.categoryId
+                (category) => category.id === transactionToEdit!.categoryId
               )?.name
             }
             onCloseWindow={setOpenEditTransactionModal}
             onSetTransactions={setTransactions}
             transactions={transactions}
-            id={transactionToEdit.id}
+            id={transactionToEdit!.id}
             categories={categories}
           />
         )}

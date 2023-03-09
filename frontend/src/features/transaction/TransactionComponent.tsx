@@ -8,8 +8,8 @@ function TransactionComponent(props: {
   date: string;
   description: string;
   type: string;
-  colorOfCategory: string,
-  category:string;
+  colorOfCategory: string | number,
+  category:string | undefined;
   onEditTransaction: MouseEventHandler<HTMLButtonElement>;
   onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {

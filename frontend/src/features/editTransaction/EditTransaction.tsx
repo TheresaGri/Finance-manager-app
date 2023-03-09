@@ -9,7 +9,7 @@ import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
 import "./EditTransaction.css";
 
-function editTransaction(props: {
+function EditTransaction(props: {
   headerText: string;
   onSetTransactions: Function;
   onCloseWindow: Function;
@@ -25,13 +25,13 @@ function editTransaction(props: {
   transactions: Array<TransactionType>;
   categories: Array<CategoryType>;
   id: number;
-  descriptionToEdit: string;
+  descriptionToEdit: string | undefined;
   amountToEdit: string;
   dateToEdit: string;
   typeToEdit: string;
   categoryToEdit?: string;
 }) {
-  const [updatedDescription, setUpdatedDescription] = useState<string>(
+  const [updatedDescription, setUpdatedDescription] = useState<string | undefined>(
     props.descriptionToEdit
   );
   const [updatedAmount, setUpdatedAmount] = useState<string>(
@@ -45,7 +45,7 @@ function editTransaction(props: {
 
   const onlyNumbers = new RegExp("^[-0-9]+$");
   const mandatoryFields =
-    updatedDescription.length > 0 &&
+    updatedDescription!.length > 0 &&
     onlyNumbers.test(updatedAmount) &&
     updatedDate.length > 0 &&
     updatedType !== "";
@@ -152,4 +152,4 @@ function editTransaction(props: {
   );
 }
 
-export default editTransaction;
+export default EditTransaction;
