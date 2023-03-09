@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import postTransaction from "../../api/postTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
@@ -23,7 +23,7 @@ function CreateNewTransaction(props: {
   labelCategory: string;
   labelType: string;
   transactions: Array<TransactionType>;
-  categories: Array<Category>;
+  categories: Array<CategoryType>;
 }) {
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
@@ -31,21 +31,33 @@ function CreateNewTransaction(props: {
   const [type, setType] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
-  const mandatoryFields = description.length > 0 && amount.length && date.length > 0;
+  const onlyNumbers = new RegExp("^[-0-9]+$");
+  const mandatoryFields =
+    description.length > 0 &&
+    onlyNumbers.test(amount) &&
+    date.length > 0 &&
+    type !== "";
 
-  function createTransaction():void {
-    
-    let foundCategory:CategoryType | undefined = props.categories.find(cat => cat.name === category)
-    if(amount === "") {
-      
+  useEffect(() => {
+    if (type === "Expense") {
+      setAmount("-" + amount);
+    } else {
+      setAmount(amount.replace("-", ""));
     }
+  }, [type]);
+
+  function createTransaction(): void {
+    let categoryId: number | undefined = props.categories.find(
+      (cat) => cat.name === category
+    )?.id;
+
     let newTransaction = {
       description: description,
-      amount: amount === "" ? 0:parseInt(amount),
-      date:date,
-      categoryId:foundCategory?.id,
-      type:type
-    }
+      amount: amount === "" ? 0 : parseInt(amount),
+      date: date,
+      categoryId: categoryId,
+      type: type,
+    };
     props.onSetTransactions([...props.transactions, newTransaction]);
     postTransaction(newTransaction);
 
@@ -81,13 +93,13 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelCategory} />
           <Select
-            values={props.categories.map(category => category.name)}
+            values={props.categories.map((category) => category.name)}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Income"]}
+            values={["", "Expense", "Income"]}
             value={type}
             onChange={(e) => setType(e.target.value)}
           />
@@ -95,7 +107,7 @@ function CreateNewTransaction(props: {
         <div className="footer">
           <Button
             name={"Save"}
-            className={mandatoryFields ? "save": "saveDisabled"}
+            className={mandatoryFields ? "save" : "saveDisabled"}
             onClick={() => createTransaction()}
           />
           <Button

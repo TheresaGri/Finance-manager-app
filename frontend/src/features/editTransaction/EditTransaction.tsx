@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import patchTransaction from "../../api/patchTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
@@ -7,7 +7,7 @@ import Label from "../../components/Label";
 import Select from "../../components/Select";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
-import './EditTransaction.css'
+import "./EditTransaction.css";
 
 function editTransaction(props: {
   headerText: string;
@@ -39,23 +39,37 @@ function editTransaction(props: {
   );
   const [updatedDate, setUpdatedDate] = useState<string>(props.dateToEdit);
   const [updatedType, setUpdatedType] = useState<string>(props.typeToEdit);
-  const [updatedCategory, setUpdatedCategory] = useState<string>();
+  const [updatedCategory, setUpdatedCategory] = useState<string | undefined>(props.categoryToEdit);
 
-  const mandatoryFields = updatedDescription.length > 0 && updatedAmount.length && updatedDate.length > 0;
+  const onlyNumbers = new RegExp("^[-0-9]+$");
+  const mandatoryFields =
+    updatedDescription.length > 0 &&
+    onlyNumbers.test(updatedAmount) &&
+    updatedDate.length > 0 &&
+    updatedType !== "";
+
+  useEffect(() => {
+    if (props.typeToEdit === "Expense" && !props.amountToEdit.includes("-")) {
+      setUpdatedAmount("-" + updatedAmount);
+    } else {
+      setUpdatedAmount(updatedAmount.replace("-", ""));
+    }
+  }, [updatedType]);
 
   function editTransaction(): void {
-    let updatedAmountNumber = parseInt(updatedAmount)
-    if(updatedType !== props.typeToEdit) {
-      updatedAmountNumber = updatedAmountNumber*(-1);
+    let updatedAmountNumber = parseInt(updatedAmount);
+    if (updatedType !== props.typeToEdit) {
+      updatedAmountNumber = updatedAmountNumber * -1;
     }
-    console.log(updatedCategory)
     let newData = {
       id: props.id,
       amount: updatedAmountNumber,
       description: updatedDescription,
       date: updatedDate,
       type: updatedType,
-      categoryId: props.categories.find(category => category.name === updatedCategory)?.id
+      categoryId: props.categories.find(
+        (category) => category.name === updatedCategory
+      )?.id,
     };
     let transactionsUpdated = props.transactions.map((transaction) => {
       if (props.id === transaction.id) {
@@ -67,11 +81,9 @@ function editTransaction(props: {
         return transaction;
       }
     });
-    console.log(transactionsUpdated)
     props.onSetTransactions(transactionsUpdated);
     patchTransaction(newData, props.id);
 
-   
     props.onCloseWindow(false);
   }
 
@@ -110,7 +122,7 @@ function editTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Income"]}
+            values={["", "Expense", "Income"]}
             value={updatedType}
             onChange={(e) => setUpdatedType(e.target.value)}
           />
@@ -118,7 +130,7 @@ function editTransaction(props: {
         <div className="footer">
           <Button
             name={"Save"}
-            className={mandatoryFields ? "save": "saveDisabled"}
+            className={mandatoryFields ? "save" : "saveDisabled"}
             onClick={() => editTransaction()}
           />
           <Button
