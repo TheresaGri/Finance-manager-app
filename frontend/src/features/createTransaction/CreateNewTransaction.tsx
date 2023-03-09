@@ -39,7 +39,8 @@ function CreateNewTransaction(props: {
     type !== "";
 
   useEffect(() => {
-    if (type === "Expense") {
+    const isExpense = type === "Expense";
+    if (isExpense) {
       setAmount("-" + amount);
     } else {
       setAmount(amount.replace("-", ""));

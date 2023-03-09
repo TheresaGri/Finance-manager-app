@@ -39,7 +39,9 @@ function editTransaction(props: {
   );
   const [updatedDate, setUpdatedDate] = useState<string>(props.dateToEdit);
   const [updatedType, setUpdatedType] = useState<string>(props.typeToEdit);
-  const [updatedCategory, setUpdatedCategory] = useState<string | undefined>(props.categoryToEdit);
+  const [updatedCategory, setUpdatedCategory] = useState<string | undefined>(
+    props.categoryToEdit
+  );
 
   const onlyNumbers = new RegExp("^[-0-9]+$");
   const mandatoryFields =
@@ -49,11 +51,18 @@ function editTransaction(props: {
     updatedType !== "";
 
   useEffect(() => {
-    if (props.typeToEdit === "Expense" && !props.amountToEdit.includes("-")) {
-      setUpdatedAmount("-" + updatedAmount);
-    } else {
-      setUpdatedAmount(updatedAmount.replace("-", ""));
+    const isExpense = props.typeToEdit === "Expense";
+    const isPositiveAmount = !props.amountToEdit.includes("-");
+
+    let newAmount = updatedAmount;
+
+    if (isExpense && isPositiveAmount) {
+      newAmount = `-${newAmount}`;
+    } else if (!isExpense) {
+      newAmount = newAmount.replace("-", "");
     }
+
+    setUpdatedAmount(newAmount);
   }, [updatedType]);
 
   function editTransaction(): void {
