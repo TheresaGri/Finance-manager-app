@@ -1,7 +1,7 @@
 [
   { "id": 1, "name": "default", "color": "lightblue" },
   { "id": 2, "name": "income", "color": "lightyellow" },
-  { "id": 3, "name": "groceries", "color": "lightred" },
+  { "id": 3, "name": "groceries", "color": "red" },
   { "id": 4, "name": "restaurants", "color": "lightsalmon" },
   { "id": 5, "name": "shopping", "color": "lightgreen" }
 ]

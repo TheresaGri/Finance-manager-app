@@ -32,15 +32,19 @@ export default function CreatePieChart() {
 
   let data = Object.keys(categoryIdCount).map((categoryId) => {
     const category = categories.find((c) => c.id === Number(categoryId));
-    const categoryName = category ? category.name : "no category";
-    return { property: categoryName, value: categoryIdCount[categoryId] };
+    const categoryName = category ? category.name : "i";
+    const categoryColor = category ? category.color : "white";
+    return {
+      property: categoryName,
+      value: categoryIdCount[categoryId],
+      color: categoryColor,
+    };
   });
 
-  console.log(data);
 
   useEffect(() => {
-    const w = 500;
-    const h = 500;
+    const w = 300;
+    const h = 300;
     const radius = w / 2;
     const svg = d3
       .select(svgRef.current)
@@ -51,28 +55,30 @@ export default function CreatePieChart() {
 
     const formattedData = d3.pie().value((d) => d.value)(data);
     const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
-    const color = d3.scaleOrdinal()
-      .domain(data.map(d => d.property))
+    const color = d3
+      .scaleOrdinal()
+      .domain(data.map((d) => d.property))
       .range(d3.schemeSet2);
 
-    const textThreshold = 20; // distance threshold for label adjustment
+    const textThreshold = 20; 
 
     svg
       .selectAll()
       .data(formattedData)
       .join("path")
       .attr("d", arcGenerator)
-      .attr("fill", (d) => color(d.data.property))
-      .style("opacity", 0.7);
+      .style("opacity", 0.7)
+      .attr("fill", (d) => d.data.color);
 
     svg
       .selectAll()
       .data(formattedData)
       .join("text")
-      .text(d => d.data.property)
-      .attr("transform", d => {
+      .text((d) => d.data.property)
+      .style("font-size", "14px") 
+      .attr("transform", (d) => {
         const [x, y] = arcGenerator.centroid(d);
-        const dist = Math.sqrt(x*x + y*y);
+        const dist = Math.sqrt(x * x + y * y);
         if (dist < textThreshold) {
           const angle = Math.atan2(y, x);
           const newX = Math.cos(angle) * textThreshold;
@@ -82,7 +88,12 @@ export default function CreatePieChart() {
           return `translate(${x},${y})`;
         }
       })
-      .style("text-anchor", "middle");
+      .style("text-anchor", "middle")
+      .append("tspan")
+      .text((d) => ` (${d3.format(".1%")(d.value / transactions.length)})`)
+      .style("font-size", "0.7em")
+      .attr("x", 0)
+      .attr("y", "1em");
   }, [data]);
 
   return (
