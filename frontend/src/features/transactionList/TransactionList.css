@@ -35,3 +35,18 @@
 h2 {
 	font-size: 30px;
 }
+
+.header-overview {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-overview > * {
+	width: 40%;
+}
+
+.header-overview:nth-child(1) {
+	width: 50vw;
+	flex-basis: 50%;
+}
