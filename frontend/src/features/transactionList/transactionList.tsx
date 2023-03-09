@@ -10,6 +10,7 @@ import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
 import EditTransaction from "../editTransaction/EditTransaction";
 import Statistics from "../statistics/Statistics";
 import TransactionComponent from "../transaction/TransactionComponent";
+import CreatePieChart from "../createPieChart/CreatePieChart";
 import "./TransactionList.css";
 
 function TransactionList() {
@@ -109,6 +110,7 @@ function TransactionList() {
         sumOfAllIncome={sumOfAllIncome}
         sumOfAllExpenses={sumOfAllExpenses}
       />
+      <CreatePieChart></CreatePieChart>
       <div className="containerButtons">
         <Button
           name={"Create Transaction"}
