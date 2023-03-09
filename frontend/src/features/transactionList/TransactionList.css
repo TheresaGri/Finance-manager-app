@@ -9,4 +9,5 @@
 
 .containerButtons {
   display: flex;
+  margin-bottom: 30px;
 }

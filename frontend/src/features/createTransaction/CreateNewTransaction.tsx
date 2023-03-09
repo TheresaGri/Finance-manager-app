@@ -5,8 +5,8 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Select from "../../components/Select";
-import Category from "../../types/Category";
-import Transaction from "../../types/Transaction";
+import CategoryType from "../../utils/types/CategoryType";
+import TransactionType from "../../utils/types/TransactionType";
 import "./CreateNewTransaction.css";
 
 function CreateNewTransaction(props: {
@@ -22,7 +22,7 @@ function CreateNewTransaction(props: {
   labelAmount: string;
   labelCategory: string;
   labelType: string;
-  transactions: Array<Transaction>;
+  transactions: Array<TransactionType>;
   categories: Array<Category>;
 }) {
   const [description, setDescription] = useState<string>("");
@@ -35,7 +35,7 @@ function CreateNewTransaction(props: {
 
   function createTransaction():void {
     
-    let foundCategory:Category | undefined = props.categories.find(cat => cat.name === category)
+    let foundCategory:CategoryType | undefined = props.categories.find(cat => cat.name === category)
     if(amount === "") {
       
     }
@@ -87,7 +87,7 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Deposit"]}
+            values={["Expense", "Income"]}
             value={type}
             onChange={(e) => setType(e.target.value)}
           />

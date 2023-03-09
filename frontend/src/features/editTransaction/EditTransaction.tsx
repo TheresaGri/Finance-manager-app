@@ -5,10 +5,9 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Select from "../../components/Select";
-import Category from "../../types/Category";
-import Transaction from "../../types/Transaction";
-import createPagination from "../createPagination/createPagination";
-import './editTransaction.css'
+import CategoryType from "../../utils/types/CategoryType";
+import TransactionType from "../../utils/types/TransactionType";
+import './EditTransaction.css'
 
 function editTransaction(props: {
   headerText: string;
@@ -23,8 +22,8 @@ function editTransaction(props: {
   labelAmount: string;
   labelCategory: string;
   labelType: string;
-  transactions: Array<Transaction>;
-  categories: Array<Category>;
+  transactions: Array<TransactionType>;
+  categories: Array<CategoryType>;
   id: number;
   descriptionToEdit: string;
   amountToEdit: string;
@@ -45,13 +44,18 @@ function editTransaction(props: {
   const mandatoryFields = updatedDescription.length > 0 && updatedAmount.length && updatedDate.length > 0;
 
   function editTransaction(): void {
+    let updatedAmountNumber = parseInt(updatedAmount)
+    if(updatedType !== props.typeToEdit) {
+      updatedAmountNumber = updatedAmountNumber*(-1);
+    }
+    console.log(updatedCategory)
     let newData = {
       id: props.id,
-      amount: updatedAmount,
+      amount: updatedAmountNumber,
       description: updatedDescription,
       date: updatedDate,
       type: updatedType,
-      category: updatedCategory,
+      categoryId: props.categories.find(category => category.name === updatedCategory)?.id
     };
     let transactionsUpdated = props.transactions.map((transaction) => {
       if (props.id === transaction.id) {
@@ -63,7 +67,7 @@ function editTransaction(props: {
         return transaction;
       }
     });
-    console.log(props.transactions)
+    console.log(transactionsUpdated)
     props.onSetTransactions(transactionsUpdated);
     patchTransaction(newData, props.id);
 
@@ -72,7 +76,6 @@ function editTransaction(props: {
   }
 
   return (<div>
-    <createPagination></createPagination>
     <div className="modalOverlay">
       <div className="modalContainer">
         <div className="title">
@@ -107,7 +110,7 @@ function editTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Deposit"]}
+            values={["Expense", "Income"]}
             value={updatedType}
             onChange={(e) => setUpdatedType(e.target.value)}
           />

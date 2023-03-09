@@ -1,10 +1,10 @@
-type Transaction = {
+type TransactionType = {
   id: number;
   amount: number;
   date: string;
   description: string;
   type: string;
-  category: number;
+  categoryId: number;
 };
 
-export default Transaction;
+export default TransactionType;
