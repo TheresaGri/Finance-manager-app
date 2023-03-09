@@ -82,17 +82,18 @@
   {
     "id": 12,
     "amount": -64,
-    "date": "2023-10-10T20:30",
     "description": "The Lala",
+    "date": "2023-10-10T20:30",
     "type": "Expense",
-    "categoryId": 1
+    "categoryId": 4
   },
   {
     "id": 13,
-    "amount": "299",
+    "amount": 299,
     "description": "Peek&Cloppenburg",
     "date": "2023-01-12T15:01",
-    "type": ""
+    "type": "",
+    "categoryId": 5
   }
 ][
   {

@@ -3,6 +3,7 @@ import { deleteTransactionRequest } from "../../api/deleteTransaction";
 import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import Button from "../../components/Button";
+import Pagination from "../../components/Pagination";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
 import CreateNewCategory from "../createCategory/CreateNewCategory";
@@ -27,10 +28,21 @@ function TransactionList() {
     date: "",
     amount: 0,
     type: "",
-    category: 0,
+    categoryId: 0,
   });
+  const transactionsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const indexOfLastTransaction: number = currentPage * transactionsPerPage;
+  const indexOfFirstTransaction: number =
+    indexOfLastTransaction - transactionsPerPage;
+  const currentTransaction: Array<TransactionType> = transactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
   const [sumOfAllIncome, setSumOfAllIncome] = useState<number>(0);
   const [sumOfAllExpenses, setSumOfAllExpenses] = useState<number>(0);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   useEffect(() => {
     async function loadTransactionsData() {
       setTransactions(await fetchTransactions(sort));
@@ -159,7 +171,7 @@ function TransactionList() {
           />
         )}
       </div>
-      {transactions.map((transaction) => {
+      {currentTransaction.map((transaction) => {
         return (
           <div>
             <TransactionComponent
@@ -179,7 +191,7 @@ function TransactionList() {
           </div>
         );
       })}
-
+    
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
@@ -199,7 +211,7 @@ function TransactionList() {
             typeToEdit={transactionToEdit.type}
             categoryToEdit={
               categories.find(
-                (category) => category.id === transactionToEdit.category
+                (category) => category.id === transactionToEdit.categoryId
               )?.name
             }
             onCloseWindow={setOpenEditTransactionModal}
@@ -209,6 +221,13 @@ function TransactionList() {
             categories={categories}
           />
         )}
+      </div>
+      <div className="pagination">
+        <Pagination
+          transactionsPerPage={transactionsPerPage}
+          totalTransactions={transactions.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );
