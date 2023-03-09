@@ -1,6 +1,5 @@
 import { useState } from "react";
 import patchTransaction from "../../api/patchTransaction";
-import putTransaction from "../../api/putTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import Input from "../../components/Input";

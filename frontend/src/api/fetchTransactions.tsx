@@ -1,5 +1,5 @@
-async function fetchTransactions(dateOrAmount?: string, limit?: number, offset?: number) {
-  const baseUrl: string = `http://localhost:3000/api/transactions?sortAscending=${dateOrAmount}&offset=${offset}&limit=${limit}`;
+async function fetchTransactions(dateOrAmount?: string) {
+  const baseUrl: string = `http://localhost:3000/api/transactions?sortAscending=${dateOrAmount}`;
   const res = await fetch(baseUrl);
   const data = await res.json();
 
