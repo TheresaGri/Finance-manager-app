@@ -1,5 +1,12 @@
 .statistics {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
+  /*   display: flex;
+/*  */ /*  flex-direction: column; */
+  margin-left: 40px;
+/*   margin-bottom: 30px;
+ */  /*   justify-content: center;
+ */
+}
+
+.incomeAndExpense {
+    white-space: nowrap;
 }

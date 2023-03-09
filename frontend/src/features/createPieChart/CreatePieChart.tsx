@@ -4,6 +4,7 @@ import fetchCategories from "../../api/fetchCategories";
 import fetchTransactions from "../../api/fetchTransactions";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
+import "./CreatePieChart.css";
 
 export default function CreatePieChart() {
   const [categories, setCategories] = useState<Array<CategoryType>>([]);
@@ -97,7 +98,7 @@ export default function CreatePieChart() {
   }, [data]);
 
   return (
-    <div>
+    <div className = "pieChart">
       <svg ref={svgRef}></svg>
     </div>
   );

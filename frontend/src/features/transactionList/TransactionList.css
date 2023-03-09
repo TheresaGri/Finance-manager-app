@@ -11,3 +11,17 @@
   display: flex;
   margin-bottom: 30px;
 }
+
+.transactionsAndStatisticContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+
+
+}
+
+.statisticsAndPieChart {
+  margin-top: 400px;
+   display: flex;
+  justify-content: center; 
+}

@@ -6,8 +6,8 @@ function Statistics(props: {
 }) {
   return (
     <div className="statistics">
-      <h2>Sum of all income: {props.sumOfAllIncome}€</h2>
-      <h2>Sum of all expenses: {props.sumOfAllExpenses}€</h2>
+      <div className="incomeAndExpense">Sum of all income: {props.sumOfAllIncome}€</div>
+      <div className= "incomeAndExpense">Sum of all expenses: {props.sumOfAllExpenses}€</div>
     </div>
   );
 }
