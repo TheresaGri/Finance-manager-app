@@ -23,7 +23,7 @@ function CreateNewTransaction(props: {
   labelCategory: string;
   labelType: string;
   transactions: Array<TransactionType>;
-  categories: Array<Category>;
+  categories: Array<CategoryType>;
 }) {
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
@@ -31,21 +31,23 @@ function CreateNewTransaction(props: {
   const [type, setType] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
-  const mandatoryFields = description.length > 0 && amount.length && date.length > 0;
+  const mandatoryFields =
+    description.length > 0 && amount.length && date.length > 0;
 
-  function createTransaction():void {
-    
-    let foundCategory:CategoryType | undefined = props.categories.find(cat => cat.name === category)
-    if(amount === "") {
-      
+  function createTransaction(): void {
+    let foundCategory: CategoryType | undefined = props.categories.find(
+      (cat) => cat.name === category
+    );
+    if (amount === "") {
     }
+
     let newTransaction = {
       description: description,
-      amount: amount === "" ? 0:parseInt(amount),
-      date:date,
-      categoryId:foundCategory?.id,
-      type:type
-    }
+      amount: amount === "" ? 0 : parseInt(amount),
+      date: date,
+      categoryId: foundCategory?.id,
+      type: type,
+    };
     props.onSetTransactions([...props.transactions, newTransaction]);
     postTransaction(newTransaction);
 
@@ -81,7 +83,7 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelCategory} />
           <Select
-            values={props.categories.map(category => category.name)}
+            values={props.categories.map((category) => category.name)}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
@@ -95,7 +97,7 @@ function CreateNewTransaction(props: {
         <div className="footer">
           <Button
             name={"Save"}
-            className={mandatoryFields ? "save": "saveDisabled"}
+            className={mandatoryFields ? "save" : "saveDisabled"}
             onClick={() => createTransaction()}
           />
           <Button
