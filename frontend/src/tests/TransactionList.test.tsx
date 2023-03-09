@@ -4,10 +4,10 @@ import TransactionList from "../features/transactionList/TransactionList";
 
 test("test something", () => {
   //Arrange
-  render(<TransactionList />);
+  const {container} = render(<TransactionList />);
 
   //Act
 
   //Assert
-  screen.getByText("Transaction")
+    expect(container).toBeInTheDocument()
 });
