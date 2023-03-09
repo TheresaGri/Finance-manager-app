@@ -1,4 +1,4 @@
-import { describe, test } from "@jest/globals";
+import { assert, expect, test } from 'vitest'
 import { render, screen } from "@testing-library/react";
 import TransactionList from "../features/transactionList/TransactionList";
 
@@ -9,5 +9,5 @@ test("test something", () => {
   //Act
 
   //Assert
-  screen.getByText();
+  screen.getByText("Transaction")
 });
