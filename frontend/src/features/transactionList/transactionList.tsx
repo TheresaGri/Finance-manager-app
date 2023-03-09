@@ -11,7 +11,7 @@ import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
 import EditTransaction from "../editTransaction/EditTransaction";
 import Statistics from "../statistics/Statistics";
 import TransactionComponent from "../transaction/TransactionComponent";
-import CreatePieChart from "../createPieChart/CreatePieChart";
+import CreatePieChart from "../pieChart/PieChart";
 import "./TransactionList.css";
 
 const TRANSACTIONS_PER_PAGE = 5;
