@@ -13,7 +13,7 @@ function TransactionComponent(props: {
   onEditTransaction: MouseEventHandler<HTMLButtonElement>;
   onDeleteTransaction: MouseEventHandler<HTMLButtonElement>;
 }) {
-  console.log(props.category)
+
   return (
     <div className="transaction" style = {{backgroundColor: `${props.colorOfCategory}`  }}>
       <div className={"editTransaction"} onClick={() => props.onEditTransaction}>

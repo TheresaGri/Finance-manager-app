@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import postTransaction from "../../api/postTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
@@ -31,21 +31,31 @@ function CreateNewTransaction(props: {
   const [type, setType] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
+  const onlyNumbers = new RegExp("^[-0-9]+$");
   const mandatoryFields =
-    description.length > 0 && amount.length && date.length > 0;
+    description.length > 0 &&
+    onlyNumbers.test(amount) &&
+    date.length > 0 &&
+    type !== "";
+
+  useEffect(() => {
+    if (type === "Expense") {
+      setAmount("-" + amount);
+    } else {
+      setAmount(amount.replace("-", ""));
+    }
+  }, [type]);
 
   function createTransaction(): void {
-    let foundCategory: CategoryType | undefined = props.categories.find(
+    let categoryId: number | undefined = props.categories.find(
       (cat) => cat.name === category
-    );
-    if (amount === "") {
-    }
+    )?.id;
 
     let newTransaction = {
       description: description,
       amount: amount === "" ? 0 : parseInt(amount),
       date: date,
-      categoryId: foundCategory?.id,
+      categoryId: categoryId,
       type: type,
     };
     props.onSetTransactions([...props.transactions, newTransaction]);
@@ -89,7 +99,7 @@ function CreateNewTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Income"]}
+            values={["", "Expense", "Income"]}
             value={type}
             onChange={(e) => setType(e.target.value)}
           />
