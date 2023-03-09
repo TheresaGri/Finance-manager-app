@@ -41,6 +41,15 @@ transactionsRouter.get("/", (req, res) => {
   } else if (req.query.sort === "amount-desc") {
     data.sort((a, b) => b.amount - a.amount);
   }
+
+  if (req.query.offset !== undefined && req.query.limit !== undefined) {
+    const offset = parseInt(req.query.offset) || 0; 
+    const limit = parseInt(req.query.limit)  || 10 ;
+
+    let slicedDate = data.slice(offset, offset + limit);
+    data = slicedDate;
+  }
+
   res.json(data);
 });
 
