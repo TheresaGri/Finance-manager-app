@@ -1,13 +1,12 @@
 import { useState } from "react";
 import patchTransaction from "../../api/patchTransaction";
-import putTransaction from "../../api/putTransaction";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Select from "../../components/Select";
-import Category from "../../types/Category";
-import Transaction from "../../types/Transaction";
+import CategoryType from "../../utils/types/CategoryType";
+import TransactionType from "../../utils/types/TransactionType";
 import './EditTransaction.css'
 
 function editTransaction(props: {
@@ -23,8 +22,8 @@ function editTransaction(props: {
   labelAmount: string;
   labelCategory: string;
   labelType: string;
-  transactions: Array<Transaction>;
-  categories: Array<Category>;
+  transactions: Array<TransactionType>;
+  categories: Array<CategoryType>;
   id: number;
   descriptionToEdit: string;
   amountToEdit: string;
@@ -45,9 +44,14 @@ function editTransaction(props: {
   const mandatoryFields = updatedDescription.length > 0 && updatedAmount.length && updatedDate.length > 0;
 
   function editTransaction(): void {
+    let updatedAmountNumber = parseInt(updatedAmount)
+    if(updatedType !== props.typeToEdit) {
+      updatedAmountNumber = updatedAmountNumber*(-1);
+    }
+    console.log(updatedCategory)
     let newData = {
       id: props.id,
-      amount: updatedAmount,
+      amount: updatedAmountNumber,
       description: updatedDescription,
       date: updatedDate,
       type: updatedType,
@@ -63,7 +67,6 @@ function editTransaction(props: {
         return transaction;
       }
     });
-
     props.onSetTransactions(transactionsUpdated);
     patchTransaction(newData, props.id);
 
@@ -106,7 +109,7 @@ function editTransaction(props: {
           />
           <Label text={props.labelType} />
           <Select
-            values={["Expense", "Deposit"]}
+            values={["Expense", "Income"]}
             value={updatedType}
             onChange={(e) => setUpdatedType(e.target.value)}
           />

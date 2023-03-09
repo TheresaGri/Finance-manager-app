@@ -1,7 +1,7 @@
-type Category = {
+type CategoryType = {
     id: number;
     name: string;
     color: number;
   };
 
-export default Category;
+export default CategoryType;
