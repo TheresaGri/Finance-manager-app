@@ -5,9 +5,9 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import "./CreateNewCategory.css";
-import Category from "../../types/Category";
+import CategoryType from "../../utils/types/CategoryType";
 
-function CreateNewCategory(props: { onSetCategories: Function, categories: Array<Category> }) {
+function CreateNewCategory(props: { onSetCategories: Function, categories: Array<CategoryType> }) {
   const [categoryText, setCategoryText] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [openCreateTransactionModal, setOpenCreateTransactionModal] =
