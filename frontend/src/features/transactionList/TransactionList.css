@@ -1,13 +1,52 @@
 .transactions {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  margin-top: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	margin-top: 200px;
 }
 
 .containerButtons {
-  display: flex;
-  margin-bottom: 30px;
+	display: flex;
+	justify-content: space-between;
+	gap: 5%;
+	width: 100%;
+	margin: 0;
+	padding: 10%;
+	font-size: 20px;
+	font-style: oblique;
+}
+
+.containerButtons > button {
+	background-color: antiquewhite;
+	border-color: black;
+	color: black;
+	border-radius: 50px;
+	letter-spacing: 3px;
+}
+
+.containerButtons :hover {
+	background-color: rgb(241, 183, 141);
+	border-radius: 50px;
+	border-color: black;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+.header-overview {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-overview > * {
+	width: 40%;
+}
+
+.header-overview:nth-child(1) {
+	width: 50vw;
+	flex-basis: 50%;
 }
