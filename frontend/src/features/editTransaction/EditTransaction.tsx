@@ -49,27 +49,26 @@ function editTransaction(props: {
     onlyNumbers.test(updatedAmount) &&
     updatedDate.length > 0 &&
     updatedType !== "";
-
+  
   useEffect(() => {
-    const isExpense = props.typeToEdit === "Expense";
-    const isPositiveAmount = !props.amountToEdit.includes("-");
-
+    const isExpense = updatedType === "Expense";
+    const isPositiveAmount = !updatedAmount.includes("-");
+    console.log(updatedType)
     let newAmount = updatedAmount;
 
     if (isExpense && isPositiveAmount) {
       newAmount = `-${newAmount}`;
+      console.log(newAmount)
     } else if (!isExpense) {
       newAmount = newAmount.replace("-", "");
     }
-
+    
     setUpdatedAmount(newAmount);
   }, [updatedType]);
 
   function editTransaction(): void {
     let updatedAmountNumber = parseInt(updatedAmount);
-    if (updatedType !== props.typeToEdit) {
-      updatedAmountNumber = updatedAmountNumber * -1;
-    }
+   
     let newData = {
       id: props.id,
       amount: updatedAmountNumber,
