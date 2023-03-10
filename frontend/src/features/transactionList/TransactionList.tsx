@@ -53,9 +53,7 @@ function TransactionList() {
 
   useEffect(() => {
     async function loadCategoryData() {
-      const data = await fetchCategories();
-      console.log(await data)
-      setCategories(await data);
+      setCategories(await fetchCategories());
     }
     loadCategoryData();
   }, []);
@@ -100,6 +98,8 @@ function TransactionList() {
     setSortOrder(!sortOrder);
     setSort(sortString);
   }
+  console.log(categories)
+
   return (
     <div className="transactions">
       <div className="header-overview">
@@ -159,7 +159,7 @@ function TransactionList() {
               date={transaction.date}
               description={transaction.description}
               type={transaction.type}
-              category={categories.length > 0 &&
+              category={
                 categories.find(
                   (category) => category.id === transaction.categoryId
                 )!.name

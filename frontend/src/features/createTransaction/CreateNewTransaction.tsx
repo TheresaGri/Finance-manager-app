@@ -41,7 +41,7 @@ function CreateNewTransaction(props: {
     let categoryId: number | undefined = props.categories.find(
       (cat) => cat.name === category
     )?.id;
-
+      console.log(categoryId)
     let newTransaction = {
       description: description,
       amount: amount === "" ? 0 : parseInt(amount),

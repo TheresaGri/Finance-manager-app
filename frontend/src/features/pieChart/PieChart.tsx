@@ -5,7 +5,7 @@ import fetchTransactions from "../../api/fetchTransactions";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
 
-export default function CreatePieChart() {
+export default function PieChart() {
 	const [categories, setCategories] = useState<Array<CategoryType>>([]);
 	const [transactions, setTransactions] = useState<Array<TransactionType>>([]);
 	const svgRef = useRef();
