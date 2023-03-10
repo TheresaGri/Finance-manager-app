@@ -11,7 +11,7 @@ import CreateNewTransaction from "../createTransaction/CreateNewTransaction";
 import EditTransaction from "../editTransaction/EditTransaction";
 import Statistics from "../statistics/Statistics";
 import TransactionComponent from "../transaction/TransactionComponent";
-import CreatePieChart from "../pieChart/PieChart";
+import PieChart from "../pieChart/PieChart";
 import "./TransactionList.css";
 
 const TRANSACTIONS_PER_PAGE = 5;
@@ -53,7 +53,9 @@ function TransactionList() {
 
   useEffect(() => {
     async function loadCategoryData() {
-      setCategories(await fetchCategories());
+      const data = await fetchCategories();
+      console.log(await data)
+      setCategories(await data);
     }
     loadCategoryData();
   }, []);
@@ -72,7 +74,7 @@ function TransactionList() {
     return acc;
   }, 0);
 
-  //rename
+
   function handleEditClick(id: number) {
     setTransactionToEdit(
       transactions.find((transaction) => transaction.id === id)!
@@ -98,7 +100,6 @@ function TransactionList() {
     setSortOrder(!sortOrder);
     setSort(sortString);
   }
-
   return (
     <div className="transactions">
       <div className="header-overview">
@@ -106,7 +107,7 @@ function TransactionList() {
           sumOfAllIncome={sumOfAllIncome}
           sumOfAllExpenses={sumOfAllExpenses}
         />
-        <CreatePieChart></CreatePieChart>
+        <PieChart></PieChart>
       </div>
       <div className="containerButtons">
         <Button
@@ -158,7 +159,7 @@ function TransactionList() {
               date={transaction.date}
               description={transaction.description}
               type={transaction.type}
-              category={
+              category={categories.length > 0 &&
                 categories.find(
                   (category) => category.id === transaction.categoryId
                 )!.name
