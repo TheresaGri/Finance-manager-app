@@ -79,7 +79,7 @@ export default function PieChart(props: {transactions: Array<TransactionType>, c
 			.style("font-size", "0.7em")
 			.attr("x", 0)
 			.attr("y", "1em");
-	}, [data]);
+	}, [data, props.transactions]);
 
 	return (
 		<div>
