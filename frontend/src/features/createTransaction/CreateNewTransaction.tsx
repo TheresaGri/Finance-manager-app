@@ -26,7 +26,8 @@ function CreateNewTransaction(props: {
     description.length > 0 &&
     onlyNumbers.test(amount) &&
     date.length > 0 &&
-    type !== "";
+    type !== "" &&
+    category !== "";
 
   useEffect(() => {
     const isExpense = type === "Expense";

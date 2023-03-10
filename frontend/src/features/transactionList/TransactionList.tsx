@@ -98,7 +98,6 @@ function TransactionList() {
     setSortOrder(!sortOrder);
     setSort(sortString);
   }
-  console.log(categories)
 
   return (
     <div className="transactions">
@@ -162,7 +161,7 @@ function TransactionList() {
               category={
                 categories.find(
                   (category) => category.id === transaction.categoryId
-                )!.name
+                )?.name
               }
               onEditTransaction={() => handleEditClick(transaction.id)}
               onDeleteTransaction={() => deleteTransaction(transaction.id)}
