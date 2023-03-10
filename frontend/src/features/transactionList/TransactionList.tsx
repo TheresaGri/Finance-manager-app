@@ -106,7 +106,10 @@ function TransactionList() {
           sumOfAllIncome={sumOfAllIncome}
           sumOfAllExpenses={sumOfAllExpenses}
         />
-        <PieChart></PieChart>
+        <PieChart
+        transactions={transactions}
+        categories={categories}
+        />
       </div>
       <div className="containerButtons">
         <Button
