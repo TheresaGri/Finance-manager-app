@@ -53,6 +53,7 @@ function TransactionList() {
 
   useEffect(() => {
     async function loadCategoryData() {
+      
       setCategories(await fetchCategories());
     }
     loadCategoryData();

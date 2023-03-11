@@ -1,7 +1,5 @@
 import * as d3 from "d3";
 import { useState, useRef, useEffect } from "react";
-import fetchCategories from "../../api/fetchCategories";
-import fetchTransactions from "../../api/fetchTransactions";
 import CategoryType from "../../utils/types/CategoryType";
 import TransactionType from "../../utils/types/TransactionType";
 
