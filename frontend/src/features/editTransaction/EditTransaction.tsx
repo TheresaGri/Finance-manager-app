@@ -126,7 +126,7 @@ function editTransaction(props: {
 						<Label text={props.labelCategory} />
 						<Select
 							values={props.categories.map((category) => category.name)}
-							value={updatedCategory}
+							value={updatedCategory!}
 							onChange={(e) => setUpdatedCategory(e.target.value)}
 						/>
 						<Label text={props.labelType} />

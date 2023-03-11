@@ -6,7 +6,7 @@ const transactionsRouter = express.Router();
 transactionsRouter.get("/", (req, res) => {
   let data = JSON.parse(fs.readFileSync("./data/transactions.json"));
   let categories = JSON.parse(fs.readFileSync("./data/categories.json"));
-  console.log(req.query.sortAscending)  
+
   if (req.query.sort === "date-asc") {
     data.sort((a, b) => new Date(a.date) - new Date(b.date));
   } else if (req.query.sort === "amount-asc") {
@@ -40,14 +40,6 @@ transactionsRouter.get("/", (req, res) => {
     data.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (req.query.sort === "amount-desc") {
     data.sort((a, b) => b.amount - a.amount);
-  }
-
-  if (req.query.offset !== undefined && req.query.limit !== undefined) {
-    const offset = parseInt(req.query.offset) || 0; 
-    const limit = parseInt(req.query.limit)  || 10 ;
-
-    let slicedDate = data.slice(offset, offset + limit);
-    data = slicedDate;
   }
 
   res.json(data);

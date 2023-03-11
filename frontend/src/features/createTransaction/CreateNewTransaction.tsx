@@ -10,18 +10,8 @@ import TransactionType from "../../utils/types/TransactionType";
 import "./CreateNewTransaction.css";
 
 function CreateNewTransaction(props: {
-  headerText: string;
   onSetTransactions: Function;
   onCloseWindow: Function;
-  inputClassName: string;
-  typeText: string;
-  typeSelect: string;
-  typeDatepicker: string;
-  labelDescription: string;
-  labelDate: string;
-  labelAmount: string;
-  labelCategory: string;
-  labelType: string;
   transactions: Array<TransactionType>;
   categories: Array<CategoryType>;
 }) {
@@ -36,7 +26,8 @@ function CreateNewTransaction(props: {
     description.length > 0 &&
     onlyNumbers.test(amount) &&
     date.length > 0 &&
-    type !== "";
+    type !== "" &&
+    category !== "";
 
   useEffect(() => {
     const isExpense = type === "Expense";
@@ -51,7 +42,7 @@ function CreateNewTransaction(props: {
     let categoryId: number | undefined = props.categories.find(
       (cat) => cat.name === category
     )?.id;
-
+      console.log(categoryId)
     let newTransaction = {
       description: description,
       amount: amount === "" ? 0 : parseInt(amount),
@@ -69,36 +60,36 @@ function CreateNewTransaction(props: {
     <div className="modalOverlay">
       <div className="modalContainer">
         <div className="title">
-          <Header heading={props.headerText} />
+          <Header heading={"Create New Transaction"} />
         </div>
         <div className="body">
-          <Label text={props.labelDescription} />
+          <Label text={"Name of Transaction"} />
           <Input
-            type={props.typeText}
-            className={props.inputClassName}
+            type={"text"}
+            className={"input"}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Label text={props.labelAmount} />
+          <Label text={"Amount"} />
           <Input
-            className={props.inputClassName}
-            type={props.typeText}
+            className={"input"}
+            type={"text"}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-          <Label text={props.labelDate} />
+          <Label text={"When"} />
           <Input
-            type={props.typeDatepicker}
-            className={props.inputClassName}
+            type={"datetime-local"}
+            className={"input"}
             onChange={(e) => setDate(e.target.value)}
           />
-          <Label text={props.labelCategory} />
+          <Label text={"Category"} />
           <Select
             values={props.categories.map((category) => category.name)}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           />
-          <Label text={props.labelType} />
+          <Label text={"Type"} />
           <Select
             values={["", "Expense", "Income"]}
             value={type}
