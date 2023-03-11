@@ -9,9 +9,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: transparent !important;
 }
 
 .modalContainer {
+	background-color: white !important;
 	width: 500px;
 	height: 400px;
 	border-radius: 12px;
@@ -22,10 +24,32 @@
 	padding: 25px;
 }
 
-.modalContainer .title {
+.modalContainer:hover {
+	border-radius: 12px !important;
+	background-color: white !important;
+}
+
+.modalContainer > div:hover {
+	background-color: white;
+}
+
+.modalContainer.title {
 	display: inline-block;
 	text-align: center;
 	margin-top: 10px;
+}
+
+.title > h3:hover {
+	background-color: white !important;
+}
+
+.body > label {
+	background-color: white !important;
+}
+
+.body > input {
+	background-color: white !important;
+	border-radius: 0 !important;
 }
 
 .modalContainer .body {
@@ -50,13 +74,15 @@
 }
 
 .save {
-	background-color: greenyellow;
-	margin: 10px;
+	background-color: greenyellow !important;
+	margin: 10px !important;
+	border-radius: 12px !important;
 }
 
 .cancel {
-	background-color: lightgrey;
-	margin: 10px;
+	background-color: lightgrey !important;
+	margin: 10px !important;
+	border-radius: 12px !important;
 }
 
 .createCategory {
@@ -65,7 +91,7 @@
 	border-radius: 50px;
 }
 
-.createCategory :hover {
+.createCategory:hover {
 	background-color: rgb(241, 183, 141);
 	border-radius: 50px;
 	border-color: black;
