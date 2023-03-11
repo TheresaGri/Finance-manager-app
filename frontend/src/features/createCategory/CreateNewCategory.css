@@ -29,6 +29,11 @@
 	background-color: white !important;
 }
 
+/* .modalContainer > *:hover {
+  funktioniert nicht ? 
+}
+*/
+
 .modalContainer > div:hover {
 	background-color: white;
 }

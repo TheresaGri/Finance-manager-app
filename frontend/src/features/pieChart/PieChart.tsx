@@ -15,14 +15,14 @@ export default function PieChart() {
 			setTransactions(await fetchTransactions());
 		}
 		loadTransactionsData();
-	}, []);
+	}, [transactions]);
 
 	useEffect(() => {
 		async function loadCategoryData() {
 			setCategories(await fetchCategories());
 		}
 		loadCategoryData();
-	}, []);
+	}, [categories]);
 
 	const categoryIdCount = transactions.reduce((acc, transaction) => {
 		const categoryId = transaction.categoryId;
