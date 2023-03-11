@@ -173,16 +173,6 @@ function TransactionList() {
       <div className="editTransaction">
         {openEditTransactionModal && (
           <EditTransaction
-            headerText={"Edit Transaction"}
-            inputClassName={"input"}
-            typeText={"text"}
-            typeSelect={"select"}
-            typeDatepicker={"datetime-local"}
-            labelDescription={"Name of Transaction"}
-            labelDate={"When"}
-            labelAmount={"Amount"}
-            labelCategory={"Category"}
-            labelType={"Type"}
             descriptionToEdit={transactionToEdit.description}
             amountToEdit={transactionToEdit.amount.toString()}
             dateToEdit={transactionToEdit.date}
