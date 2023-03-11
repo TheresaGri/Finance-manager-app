@@ -10,148 +10,137 @@ import TransactionType from "../../utils/types/TransactionType";
 import "./EditTransaction.css";
 
 function editTransaction(props: {
-	headerText: string;
-	onSetTransactions: Function;
-	onCloseWindow: Function;
-	inputClassName: string;
-	typeText: string;
-	typeSelect: string;
-	typeDatepicker: string;
-	labelDescription: string;
-	labelDate: string;
-	labelAmount: string;
-	labelCategory: string;
-	labelType: string;
-	transactions: Array<TransactionType>;
-	categories: Array<CategoryType>;
-	id: number;
-	descriptionToEdit: string;
-	amountToEdit: string;
-	dateToEdit: string;
-	typeToEdit: string;
-	categoryToEdit?: string;
+  onSetTransactions: Function;
+  onCloseWindow: Function;
+  transactions: Array<TransactionType>;
+  categories: Array<CategoryType>;
+  id: number;
+  descriptionToEdit: string;
+  amountToEdit: string;
+  dateToEdit: string;
+  typeToEdit: string;
+  categoryToEdit?: string;
 }) {
-	const [updatedDescription, setUpdatedDescription] = useState<string>(
-		props.descriptionToEdit
-	);
-	const [updatedAmount, setUpdatedAmount] = useState<string>(
-		props.amountToEdit
-	);
-	const [updatedDate, setUpdatedDate] = useState<string>(props.dateToEdit);
-	const [updatedType, setUpdatedType] = useState<string>(props.typeToEdit);
-	const [updatedCategory, setUpdatedCategory] = useState<string | undefined>(
-		props.categoryToEdit
-	);
+  const [updatedDescription, setUpdatedDescription] = useState<string>(
+    props.descriptionToEdit
+  );
+  const [updatedAmount, setUpdatedAmount] = useState<string>(
+    props.amountToEdit
+  );
+  const [updatedDate, setUpdatedDate] = useState<string>(props.dateToEdit);
+  const [updatedType, setUpdatedType] = useState<string>(props.typeToEdit);
+  const [updatedCategory, setUpdatedCategory] = useState<string | undefined>(
+    props.categoryToEdit
+  );
 
-	const onlyNumbers = new RegExp("^[-0-9]+$");
-	const mandatoryFields =
-		updatedDescription.length > 0 &&
-		onlyNumbers.test(updatedAmount) &&
-		updatedDate.length > 0 &&
-		updatedType !== "";
+  const onlyNumbers = new RegExp("^[-0-9]+$");
+  const mandatoryFields =
+    updatedDescription.length > 0 &&
+    onlyNumbers.test(updatedAmount) &&
+    updatedDate.length > 0 &&
+    updatedType !== "";
 
-	useEffect(() => {
-		const isExpense = updatedType === "Expense";
-		const isPositiveAmount = !updatedAmount.includes("-");
-		console.log(updatedType);
-		let newAmount = updatedAmount;
+  useEffect(() => {
+    const isExpense = updatedType === "Expense";
+    const isPositiveAmount = !updatedAmount.includes("-");
 
-		if (isExpense && isPositiveAmount) {
-			newAmount = `-${newAmount}`;
-			console.log(newAmount);
-		} else if (!isExpense) {
-			newAmount = newAmount.replace("-", "");
-		}
+    let newAmount = updatedAmount;
 
-		setUpdatedAmount(newAmount);
-	}, [updatedType]);
+    if (isExpense && isPositiveAmount) {
+      newAmount = `-${newAmount}`;
+    } else if (!isExpense) {
+      newAmount = newAmount.replace("-", "");
+    }
 
-	function editTransaction(): void {
-		let updatedAmountNumber = parseInt(updatedAmount);
+    setUpdatedAmount(newAmount);
+  }, [updatedType]);
 
-		let newData = {
-			id: props.id,
-			amount: updatedAmountNumber,
-			description: updatedDescription,
-			date: updatedDate,
-			type: updatedType,
-			categoryId: props.categories.find(
-				(category) => category.name === updatedCategory
-			)?.id,
-		};
-		let transactionsUpdated = props.transactions.map((transaction) => {
-			if (props.id === transaction.id) {
-				return {
-					...transaction,
-					...newData,
-				};
-			} else {
-				return transaction;
-			}
-		});
-		props.onSetTransactions(transactionsUpdated);
-		patchTransaction(newData, props.id);
+  function editTransaction(): void {
+    let updatedAmountNumber = parseInt(updatedAmount);
 
-		props.onCloseWindow(false);
-	}
+    let newData = {
+      id: props.id,
+      amount: updatedAmountNumber,
+      description: updatedDescription,
+      date: updatedDate,
+      type: updatedType,
+      categoryId: props.categories.find(
+        (category) => category.name === updatedCategory
+      )?.id,
+    };
+    let transactionsUpdated = props.transactions.map((transaction) => {
+      if (props.id === transaction.id) {
+        return {
+          ...transaction,
+          ...newData,
+        };
+      } else {
+        return transaction;
+      }
+    });
+    props.onSetTransactions(transactionsUpdated);
+    patchTransaction(newData, props.id);
 
-	return (
-		<div>
-			<div className="modalOverlay">
-				<div className="modalContainer">
-					<div className="title">
-						<Header heading={props.headerText} />
-					</div>
-					<div className="body">
-						<Label text={props.labelDescription} />
-						<Input
-							type={props.typeText}
-							className={props.inputClassName}
-							value={updatedDescription}
-							onChange={(e) => setUpdatedDescription(e.target.value)}
-						/>
-						<Label text={props.labelAmount} />
-						<Input
-							className={props.inputClassName}
-							type={props.typeText}
-							value={updatedAmount}
-							onChange={(e) => setUpdatedAmount(e.target.value)}
-						/>
-						<Label text={props.labelDate} />
-						<Input
-							type={props.typeDatepicker}
-							className={props.inputClassName}
-							onChange={(e) => setUpdatedDate(e.target.value)}
-						/>
-						<Label text={props.labelCategory} />
-						<Select
-							values={props.categories.map((category) => category.name)}
-							value={updatedCategory!}
-							onChange={(e) => setUpdatedCategory(e.target.value)}
-						/>
-						<Label text={props.labelType} />
-						<Select
-							values={["", "Expense", "Income"]}
-							value={updatedType}
-							onChange={(e) => setUpdatedType(e.target.value)}
-						/>
-					</div>
-					<div className="footer">
-						<Button
-							name={"Save"}
-							className={mandatoryFields ? "save" : "saveDisabled"}
-							onClick={() => editTransaction()}
-						/>
-						<Button
-							name={"Cancel"}
-							className={"cancel"}
-							onClick={() => props.onCloseWindow(false)}
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+    props.onCloseWindow(false);
+  }
+
+  return (
+    <div>
+      <div className="modalOverlay">
+        <div className="modalContainer">
+          <div className="title">
+            <Header heading={"Edit Transaction"} />
+          </div>
+          <div className="body">
+            <Label text={"Name of Transaction"} />
+            <Input
+              type={"text"}
+              className={"input"}
+              value={updatedDescription}
+              onChange={(e) => setUpdatedDescription(e.target.value)}
+            />
+            <Label text={"Amount"} />
+            <Input
+              className={"input"}
+              type={"text"}
+              value={updatedAmount}
+              onChange={(e) => setUpdatedAmount(e.target.value)}
+            />
+            <Label text={"When"} />
+            <Input
+              type={"datetime-local"}
+              className={"input"}
+              onChange={(e) => setUpdatedDate(e.target.value)}
+            />
+            <Label text={"Category"} />
+            <Select
+              values={props.categories.map((category) => category.name)}
+              value={updatedCategory!}
+              onChange={(e) => setUpdatedCategory(e.target.value)}
+            />
+            <Label text={"Type"} />
+            <Select
+              values={["", "Expense", "Income"]}
+              value={updatedType}
+              onChange={(e) => setUpdatedType(e.target.value)}
+            />
+          </div>
+          <div className="footer">
+            <Button
+              name={"Save"}
+              className={mandatoryFields ? "save" : "saveDisabled"}
+              onClick={() => editTransaction()}
+            />
+            <Button
+              name={"Cancel"}
+              className={"cancel"}
+              onClick={() => props.onCloseWindow(false)}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default editTransaction;
